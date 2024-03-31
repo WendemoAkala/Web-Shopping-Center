@@ -17,9 +17,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void createOrder(OrderRequest orderRequest) throws Exception {
         Order existingOrder = (Order) orderRepository.findOrderByUserId(orderRequest.getUserId());
-        System.out.println(existingOrder);
         if(existingOrder != null){
-            System.out.println(existingOrder);
             throw new Exception("UserId " + orderRequest.getUserId() + " is already taken");
         }
 

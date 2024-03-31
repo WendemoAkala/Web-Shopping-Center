@@ -8,12 +8,12 @@ public class Order {
     private Long userId;
     private Date orderDate;
     private String shippingAddress;
-    private double totalPrice;
+    private Double totalPrice;
     private  OrderStatus status;
 
 
 
-    public Order (Long id, Long userId, Date orderDate, String shippingAddress, double totalPrice, OrderStatus status) {
+    public Order (Long id, Long userId, Date orderDate, String shippingAddress, Double totalPrice, OrderStatus status) {
         this.id = id;
         this.userId = userId;
         this.orderDate = orderDate;
@@ -52,7 +52,7 @@ public class Order {
         this.orderDate = orderDate;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -70,11 +70,11 @@ public class Order {
     public OrderStatus getStatus() {
         return status;
     }
-    public Object getDate() {
+    public Date getDate() {
         return null;
     }
 
-    public Object getTotalPrice() {
+    public Double getTotalPrice() {
         return null;
     }
 

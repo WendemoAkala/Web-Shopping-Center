@@ -25,21 +25,23 @@ public class OrderController {
 
     @GetMapping("/user/{userId}")
     @CrossOrigin
-    public List<Order> getUserOrders(@PathVariable Long userId) {
+    public ResponseEntity<Order> getUserOrders(@PathVariable Long userId) {
         CustomUser customUser = (CustomUser) userService.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
-        return orderService.findByUserAndStatusIn(customUser,List.of(OrderStatus.TEMP, OrderStatus.CLOSE));
+         orderService.findByUserAndStatusIn(customUser ,List.of(OrderStatus.TEMP, OrderStatus.CLOSE));
+         return null;
     }
 
     @GetMapping("/{orderId}")
     @CrossOrigin
-    public Order getOrderDetails(@PathVariable Long orderId) {
-        return (Order) orderService.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+    public ResponseEntity<?> getOrderDetails(@PathVariable Long orderId) {
+        orderService.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+        return null;
     }
 
     @PutMapping("/modify/{orderId}")
     @CrossOrigin
-    public Order modifyOrder(@PathVariable Long orderId, @RequestBody Order modifiedOrder) {
+    public ResponseEntity<Order> modifyOrder(@PathVariable Long orderId, @RequestBody Order modifiedOrder) {
         Order existingOrder = (Order) orderService.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
 
         if (existingOrder.getStatus().name().equals(OrderStatus.TEMP)) {
@@ -55,7 +57,8 @@ public class OrderController {
                     throw new RuntimeException("Insufficient stock for item: " + item.getTitle());
                 }
             }
-            return orderService.save(existingOrder);
+            orderService.save(existingOrder);
+            return null;
         } else {
             throw new RuntimeException("Cannot modify a closed order");
         }
@@ -73,9 +76,10 @@ public class OrderController {
 
     @GetMapping("/history/{userId}")
     @CrossOrigin
-    public List<Order> getOrderHistory(@PathVariable Long userId) {
+    public ResponseEntity<List<Order>> getOrderHistory(@PathVariable Long userId) {
         CustomUser customUser = (CustomUser) orderService.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        return orderService.findByUserId(userId);
+        orderService.findByUserId(userId);
+        return null;
     }
 
     @PutMapping("/updateStatus/{orderId}")
@@ -92,7 +96,7 @@ public class OrderController {
     }
 @PostMapping("/updateItem")
 @CrossOrigin
-    private void updateItemStock(List<OrderItem> orderItems) {
+    private ResponseEntity<?> updateItemStock(List<OrderItem> orderItems) {
     for (OrderItem orderItem : orderItems) {
         Item item = orderItem.getItems();
         int quantityOrdered = orderItem.getQuantity();
@@ -104,6 +108,7 @@ public class OrderController {
             throw new RuntimeException("Insufficient stock for item: " + item.getTitle());
         }
     }
+        return null;
 }
 
 

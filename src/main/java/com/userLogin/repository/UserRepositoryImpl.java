@@ -7,11 +7,15 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
     private static final String USER_TABLE_NAME = "user";
 
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -23,32 +27,53 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public CustomUser findUserByUsername(String username) {
+    public List<CustomUser> getUsersByFirstName(String firstName) {
         String sql = "SELECT * FROM " + USER_TABLE_NAME + " WHERE username=?";
         try {
-            return jdbcTemplate.queryForObject(sql, new UserMapper(), username);
+            return jdbcTemplate.query(sql, userMapper, firstName);
         } catch (EmptyResultDataAccessException error) {
             return null;
         }
     }
     @Override
-    public Long deleteUser(CustomUser customUser) {
-        String sql = "DELETE " + USER_TABLE_NAME + " (first_name, last_name, email, phone, address,username, password, roles, permissions) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, customUser.getFirstName(), customUser.getLastName(), customUser.getEmail(), customUser.getPhone(),
-                            customUser.getAddress(), customUser.getUsername(), customUser.getPassword(), customUser.getRoles(), customUser.getPermissions());
-        return  null;
+    public CustomUser getUserByFirstName(String firstName) {
+        String sql = "SELECT * FROM " + USER_TABLE_NAME + " WHERE username=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, userMapper, firstName);
+        } catch (EmptyResultDataAccessException error) {
+            return null;
+        }
     }
     @Override
-    public Long updateUser(CustomUser customUser){
-        String sql = "UPDATE " + USER_TABLE_NAME + " first_name=?, last_name=?, email=?, phone=?, address=?, username=?, password=?  WHERE id=?";
+    public void deleteUserById(Long id) {
+            String sql = "DELETE FROM " + USER_TABLE_NAME + " WHERE id=?";
+        try {
+            jdbcTemplate.update(sql, userMapper, id);
+            System.out.println("User with id " + id + " is deleted");
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("There is no User with id " + id);
+        }
+    }
+    @Override
+    public void updateUser(CustomUser customUser){
+        String sql = "UPDATE " + USER_TABLE_NAME + " SET first_name=?, last_name=?, email=?, phone=?, address=?, username=?, password=?  WHERE id=?";
         jdbcTemplate.update(sql, customUser.getFirstName(), customUser.getLastName(), customUser.getEmail(), customUser.getPhone(),
-                customUser.getAddress(), customUser.getUsername(), customUser.getPassword(), customUser.getRoles(), customUser.getPermissions());
+                customUser.getAddress(), customUser.getUsername(), customUser.getPassword(), customUser.getRoles(), customUser.getPermissions(),customUser.getId());
+    }
+
+    @Override
+    public CustomUser findByUsername(String username) {
         return null;
     }
 
     @Override
-    public Object findByUsername(String username) {
-        return null;
+    public CustomUser findUserById(Long id) {
+        String sql = "SELECT * FROM " + USER_TABLE_NAME + " WHERE id=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, userMapper, id);
+        } catch (EmptyResultDataAccessException error) {
+            return null;
+        }
     }
 }
 

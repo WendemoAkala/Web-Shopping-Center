@@ -8,13 +8,13 @@ public class OrderRequest {
     private Long userId;
     private Date orderDate;
     private String shippingAddress;
-    private double totalPrice;
+    private Double totalPrice;
     private  OrderStatus status;
 
     public OrderRequest() {
     }
 
-    public OrderRequest(Long id, Long userId, Date orderDate, String shippingAddress, double totalPrice, OrderStatus status) {
+    public OrderRequest(Long id, Long userId, Date orderDate, String shippingAddress, Double totalPrice, OrderStatus status) {
         this.id = id;
         this.userId = userId;
         this.orderDate = orderDate;
@@ -55,11 +55,11 @@ public class OrderRequest {
         this.shippingAddress = shippingAddress;
     }
 
-    public double getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -73,11 +73,11 @@ public class OrderRequest {
 
     public Order toOrder(){
         return new Order(
-                (Long) null,
+                 null,
                 this.userId,
                 this.orderDate,
                 this.shippingAddress,
-                (Double) this.totalPrice,
+                this.totalPrice,
                 this.status
         );
     }
