@@ -1,6 +1,7 @@
 package com.userLogin.controller;
 import com.userLogin.model.Item;
 import com.userLogin.model.ItemRequest;
+import com.userLogin.model.Order;
 import com.userLogin.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,9 @@ public class ItemController {
 
     @GetMapping("/all")
     @CrossOrigin
-    public List<Item> getAllItems() {
-        return itemService.findAll();
+    public ResponseEntity<List<Item>> getAllItems() {
+        itemService.findAll();
+        return null;
     }
     @PostMapping("/create")
     @CrossOrigin
