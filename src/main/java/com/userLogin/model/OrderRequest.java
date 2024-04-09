@@ -1,7 +1,6 @@
 package com.userLogin.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class OrderRequest {
     private Long id;
@@ -11,16 +10,20 @@ public class OrderRequest {
     private Double totalPrice;
     private  OrderStatus status;
 
-    public OrderRequest() {
-    }
 
-    public OrderRequest(Long id, Long userId, Date orderDate, String shippingAddress, Double totalPrice, OrderStatus status) {
+
+    public OrderRequest (Long id, Long userId, Date orderDate, String shippingAddress, Double totalPrice, OrderStatus status) {
         this.id = id;
         this.userId = userId;
         this.orderDate = orderDate;
         this.shippingAddress = shippingAddress;
         this.totalPrice = totalPrice;
         this.status = status;
+
+    }
+
+    public OrderRequest() {
+
     }
 
     public Long getId() {
@@ -30,6 +33,7 @@ public class OrderRequest {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public Long getUserId() {
         return userId;
@@ -47,6 +51,14 @@ public class OrderRequest {
         this.orderDate = orderDate;
     }
 
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
     public String getShippingAddress() {
         return shippingAddress;
     }
@@ -54,31 +66,25 @@ public class OrderRequest {
     public void setShippingAddress(String shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
-
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
     public OrderStatus getStatus() {
         return status;
     }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
+    public Date getDate() {
+        return null;
     }
 
-    public Order toOrder(){
-        return new Order(
-                 null,
-                this.userId,
-                this.orderDate,
-                this.shippingAddress,
-                this.totalPrice,
-                this.status
+    public Double getTotalPrice() {
+        return null;
+    }
+public Order toOrder(){
+       return new Order(
+                null,
+        this.userId,
+        this.orderDate,
+        this.shippingAddress,
+        this.totalPrice,
+        this.status
         );
-    }
+
+}
 }

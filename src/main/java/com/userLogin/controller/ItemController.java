@@ -16,7 +16,7 @@ public class ItemController {
     private ItemService itemService;
 
 
-    @GetMapping("/all")
+    @GetMapping("/all/")
     @CrossOrigin
     public ResponseEntity<List<Item>> getAllItems() {
         itemService.findAll();
@@ -32,7 +32,7 @@ public class ItemController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
         }
     }
-    @GetMapping("/search")
+    @GetMapping("/search/")
     @CrossOrigin
     public ResponseEntity<List<Item>> searchItemsByName(@RequestParam String title) {
         List<Item> searchResults = itemService.searchItemsByName(title);

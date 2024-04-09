@@ -14,11 +14,13 @@ import java.util.Optional;
 public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private OrderService orderService;
     @Override
     public void createOrder(OrderRequest orderRequest) throws Exception {
-        Order existingOrder = (Order) orderRepository.findOrderByUserId(orderRequest.getUserId());
+        Order existingOrder = orderRepository.findByUserId(orderRequest.getId());
         if(existingOrder != null){
-            throw new Exception("UserId " + orderRequest.getUserId() + " is already taken");
+            throw new Exception("User Id " + orderRequest.getId() + " is already exist change Id");
         }
 
             orderRepository.createOrder(orderRequest.toOrder());
@@ -32,8 +34,13 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public void deleteOrder(Long userId) {
-        orderRepository.deleteById(userId);
+    public void deleteOrder(Long id) {
+        Order existingOrder = orderRepository.findByUserId(id);
+        try{
+           orderRepository.deleteById(id);
+         }catch (EnumConstantNotPresentException e){
+          System.out.println("user not found");
+         }
     }
 
     @Override
@@ -48,7 +55,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Order save(Order order) {
-        return null;
+        return save(order);
     }
 
     @Override

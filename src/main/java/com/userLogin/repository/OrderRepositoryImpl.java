@@ -28,15 +28,21 @@ public class OrderRepositoryImpl implements OrderRepository{
 
 
     @Override
-    public List<Order> findByUserId(Long userId) {
-        return null;
+    public Order findByUserId(Long userId) {
+        String sql = "SELECT * FROM " + ORDER_TABLE_NAME + " WHERE user_id=?";
+        try {
+            return jdbcTemplate.queryForObject(sql,new OrderMapper(), userId);
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
+            return null;
+        }
     }
 
     @Override
-    public List<Order> findOrderByStatus( OrderStatus status) {
+    public List<Order> findOrdersByStatus( OrderStatus status) {
         String sql = "SELECT * FROM " + ORDER_TABLE_NAME + " WHERE status=?";
         try {
-            return jdbcTemplate.query(sql,  orderMapper, status);
+            return jdbcTemplate.query(sql,  new OrderMapper(), status);
         } catch (EmptyResultDataAccessException error) {
             System.out.println("Empty Data Warning");
             return null;
@@ -47,14 +53,17 @@ public class OrderRepositoryImpl implements OrderRepository{
     public List<Order> findOrderByUserId(Long userId) {
         String sql = "SELECT * FROM " + ORDER_TABLE_NAME + " WHERE user_id=?";
         try {
-            return Collections.singletonList(jdbcTemplate.queryForObject(sql, new OrderMapper(), userId));
+            return Collections.singletonList(jdbcTemplate.queryForObject(sql,new OrderMapper(), userId));
         } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }
     }
 
     @Override
-    public void deleteById(Long customUser) {
+    public void deleteById(Long id) {
+        String sql = "DELETE FROM " + ORDER_TABLE_NAME + " WHERE user_id=?";
+             jdbcTemplate.update(sql, id);
 
     }
 

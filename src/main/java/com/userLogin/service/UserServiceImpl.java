@@ -2,6 +2,7 @@ package com.userLogin.service;
 
 import com.userLogin.model.CustomUser;
 import com.userLogin.model.CustomUserRequest;
+import com.userLogin.model.Favorite;
 import com.userLogin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,24 +26,52 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(CustomUserRequest customUserRequest) {
-
+    public void updateUser(CustomUserRequest customUserRequest) throws Exception{
+        CustomUser existingCustomUser = userRepository.getUserByFirstName(customUserRequest.getFirstName());
+        if (existingCustomUser != null) {
+            throw new Exception("User whit firstname " + customUserRequest.getFirstName() + " is not exist create new user");
+        }
+        existingCustomUser.setFirstName(customUserRequest.getFirstName());
+        existingCustomUser.setLastName(customUserRequest.getLastName());
+        existingCustomUser.setEmail(customUserRequest.getEmail());
+        existingCustomUser.setPhone(customUserRequest.getPhone());
+        existingCustomUser.setAddress(customUserRequest.getAddress());
+        existingCustomUser.setUsername(customUserRequest.getUsername());
+        existingCustomUser.setPassword(customUserRequest.getPassword());
+        userRepository.updateUser(existingCustomUser);
     }
 
     @Override
     public List<CustomUser> getUsersByFirstName(String firstName) {
-         userRepository.getUsersByFirstName(firstName);
-         return null;
+//        List<CustomUser> existingCustomUser = userRepository.getUsersByFirstName(firstName);
+        return userRepository.getUsersByFirstName(firstName);
+//         return null;
     }
+
     @Override
     public CustomUser getUserByFirstName(String firstName) {
-        userRepository.getUserByFirstName(firstName);
-        return null;
+//        CustomUser existingCustomUser = userRepository.getUserByFirstName(firstName);
+        return userRepository.getUserByFirstName(firstName);
+//        return null;
     }
+
+    @Override
+    public CustomUser save(CustomUser customUser) {
+        CustomUser existingCustomUser = userRepository.getUserByFirstName(customUser.getFirstName());
+         userRepository.updateUser(existingCustomUser);
+        return save(existingCustomUser);
+    }
+
+    @Override
+    public List<CustomUser> getAllUsers() {
+       return userRepository.getAllUsers();
+
+    }
+
     @Override
     public CustomUser findByUsername(String username) {
-        userRepository.findByUsername(username);
-        return null;
+//        CustomUser existingCustomUser = userRepository.findByUsername(username);
+        return  userRepository.findByUsername(username);
     }
 
     @Override
@@ -52,11 +81,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
-//        CustomUser existingCustomUser = userRepository.findUserById(id);
-        try{
-            userRepository.deleteUserById(id);
-        }catch (EnumConstantNotPresentException e){
-            System.out.println("user not found");
-        }
+//       List<CustomUser> existingCustomUser = userRepository.getAllUsers();
+                userRepository.deleteUserById(id);
+               System.out.println("user whit id " + id + " is deleted");
     }
 }

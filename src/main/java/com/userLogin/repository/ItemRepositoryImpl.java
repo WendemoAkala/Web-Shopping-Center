@@ -16,6 +16,8 @@ public class ItemRepositoryImpl implements ItemRepository{
     private static final String ITEM_TABLE_NAME = "item";
 
     @Autowired
+    private ItemMapper itemMapper;
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Override
@@ -28,8 +30,9 @@ public class ItemRepositoryImpl implements ItemRepository{
     public Item findItemByTitle(String title) {
         String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
         try {
-            return jdbcTemplate.queryForObject(sql, new ItemMapper(), title);
+            return jdbcTemplate.queryForObject(sql, itemMapper, title);
         } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }
     }
@@ -39,8 +42,9 @@ public class ItemRepositoryImpl implements ItemRepository{
 
         String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
         try {
-            return Collections.singletonList(jdbcTemplate.queryForObject(sql, new ItemMapper(), title));
+            return jdbcTemplate.query(sql, itemMapper, title);
         } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }
     }
@@ -48,8 +52,9 @@ public class ItemRepositoryImpl implements ItemRepository{
     public List<Item> searchItemsByName(String title) {
         String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
         try {
-            return Collections.singletonList(jdbcTemplate.queryForObject(sql, new ItemMapper(), title));
+            return jdbcTemplate.query(sql, itemMapper, title);
         } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }
     }

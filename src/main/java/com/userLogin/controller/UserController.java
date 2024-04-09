@@ -5,11 +5,13 @@ import com.userLogin.model.CustomUserRequest;
 import com.userLogin.repository.UserRepository;
 import com.userLogin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 @RestController
 @RequestMapping("api/public/user")
@@ -18,49 +20,37 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create")
     @CrossOrigin
-    public ResponseEntity<?> createUser(@RequestBody CustomUserRequest customUser){
-        try{
-           userService.createUser(customUser);
-           return null;
-        } catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-        }
+    public void createUser(@RequestBody CustomUserRequest customUser) throws Exception {
+          userService.createUser(customUser);
     }
-    @PutMapping("/update")
+    @PutMapping(value = "/update")
     @CrossOrigin
-    public ResponseEntity<?> updateUser(@RequestBody CustomUserRequest customUser){
-        try{
-            userService.updateUser(customUser);
-            return null;
-        } catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-        }
+    public void updateUser(@RequestParam CustomUserRequest customUser) throws Exception {
+             userService.updateUser(customUser);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     @CrossOrigin
-    public ResponseEntity<?> deleteUserById(@PathVariable Long id){
-        try{
-            userService.deleteUserById(id);
-            return null;
-        } catch (Exception exception){
-           return   ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-        }
+    public void deleteUserById(@PathVariable Long id){
+                userService.deleteUserById(id);
 
     }
-    @GetMapping("/All/{firstName")
+    @GetMapping(value = "/All/")
     @CrossOrigin
-    public List<CustomUser> getUsersByFirstName(@PathVariable String firstName){
-        userService.getUsersByFirstName(firstName);
-        return null;
+    public List<CustomUser> getUsersByFirstName(@RequestParam String firstName){
+        return userService.getUsersByFirstName(firstName);
     }
-    @GetMapping("/{firstName")
+    @GetMapping(value = "/")
     @CrossOrigin
-    public CustomUser getUserByFirstName(@PathVariable String firstName){
-        userService.getUserByFirstName(firstName);
-        return null;
+    public CustomUser getUserByFirstName(@RequestParam String firstName){
+        return userService.getUserByFirstName(firstName);
+    }
+    @GetMapping(value = "/all/")
+    @CrossOrigin
+    public List<CustomUser> getAllUsers(){
+       return userService.getAllUsers();
     }
 }
 

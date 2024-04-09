@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ItemService {
-    void createItem(ItemRequest item) ;
+    void createItem(ItemRequest item) throws Exception;
 
     Item findItemByTitle(String title);
 

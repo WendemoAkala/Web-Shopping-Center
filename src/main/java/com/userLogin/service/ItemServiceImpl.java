@@ -14,7 +14,11 @@ public class ItemServiceImpl implements ItemService{
     @Autowired
     private ItemRepository itemRepository;
     @Override
-    public void createItem(ItemRequest item) {
+    public void createItem(ItemRequest item) throws Exception {
+        Item item1 = itemRepository.findItemByTitle(item.getTitle());
+        if(item1 != null){
+            throw new Exception("Title " + item1.getTitle() + " is already exist");
+        }
         itemRepository.createItem(item.toItem());
     }
 

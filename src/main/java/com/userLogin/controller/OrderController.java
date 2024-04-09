@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 @RestController
 @RequestMapping("/api/public/orders")
 public class OrderController {
@@ -48,7 +46,7 @@ public class OrderController {
           List<OrderItem> modifiedItems = (List<OrderItem>) existingOrder;
 
             for (OrderItem modifiedItem : modifiedItems) {
-                Item item = modifiedItem.getItems();
+                Item item = modifiedItem();
                 int quantityOrdered = modifiedItem.getQuantity();
                 if (quantityOrdered <= item.getStockCount()) {
                     item.setStockCount(item.getStockCount() - quantityOrdered);
@@ -63,15 +61,15 @@ public class OrderController {
             throw new RuntimeException("Cannot modify a closed order");
         }
     }
+
+    private Item modifiedItem() {
+        return null;
+    }
+
     @PostMapping("/create")
     @CrossOrigin
-    public ResponseEntity<?> createOrder(  @RequestBody OrderRequest orderRequest) {
-                try{
-        orderService.createOrder(orderRequest);
-        return null;
-    } catch (Exception exception){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-    }
+    public String createOrder(  @RequestBody OrderRequest orderRequest) {
+        return String.format("Anew order whit item:%s for user name: %s" + orderRequest.getUserId(), orderRequest.getTotalPrice());
     }
 
     @GetMapping("/history/{userId}")
