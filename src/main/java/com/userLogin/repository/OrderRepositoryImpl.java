@@ -42,7 +42,7 @@ public class OrderRepositoryImpl implements OrderRepository{
     public List<Order> findOrdersByStatus( OrderStatus status) {
         String sql = "SELECT * FROM " + ORDER_TABLE_NAME + " WHERE status=?";
         try {
-            return jdbcTemplate.query(sql,  new OrderMapper(), status);
+            return jdbcTemplate.query(sql,  orderMapper, status);
         } catch (EmptyResultDataAccessException error) {
             System.out.println("Empty Data Warning");
             return null;
@@ -53,7 +53,7 @@ public class OrderRepositoryImpl implements OrderRepository{
     public List<Order> findOrderByUserId(Long userId) {
         String sql = "SELECT * FROM " + ORDER_TABLE_NAME + " WHERE user_id=?";
         try {
-            return Collections.singletonList(jdbcTemplate.queryForObject(sql,new OrderMapper(), userId));
+            return jdbcTemplate.query(sql,orderMapper, userId);
         } catch (EmptyResultDataAccessException error) {
             System.out.println("Warning: EmptyResultDataAccessException");
             return null;

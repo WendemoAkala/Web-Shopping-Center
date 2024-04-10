@@ -36,8 +36,8 @@ public class FavoriteServiceImpl implements FavoriteService{
     }
 
     @Override
-    public void removeFromFavorites(List<Item> item) {
-        favoriteRepository.removeFromFavorites(item);
+    public void removeFromFavorites(Long userId) {
+        favoriteRepository.removeFromFavorites(userId);
     }
 
     @Override

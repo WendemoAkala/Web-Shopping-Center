@@ -9,4 +9,6 @@ public interface ItemRepository {
     Item findItemByTitle(String title);
     List<Item> findByTitleContaining(String title);
     List<Item> searchItemsByName(String title);
+
+    List<Item> findAll();
 }

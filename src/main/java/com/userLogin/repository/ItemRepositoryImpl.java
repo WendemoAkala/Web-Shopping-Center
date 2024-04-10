@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -57,5 +55,14 @@ public class ItemRepositoryImpl implements ItemRepository{
             System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }
+    }
+    @Override
+    public List<Item> findAll(){
+        String sql = "SELECT * FROM " + ITEM_TABLE_NAME;
+     try{   return jdbcTemplate.query(sql, new ItemMapper());
+    } catch (EmptyResultDataAccessException error) {
+        System.out.println("Warning: EmptyResultDataAccessException");
+        return null;
+    }
     }
 }

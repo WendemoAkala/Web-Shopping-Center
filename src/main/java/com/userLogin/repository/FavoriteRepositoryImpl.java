@@ -18,9 +18,9 @@ public class FavoriteRepositoryImpl implements FavoriteRepository{
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void removeFromFavorites(List<Item> item) {
-        String sql = "DELETE FROM " + FAVORITE_TABLE_NAME + " WHERE items?)";
-        jdbcTemplate.update(sql, item);
+    public void removeFromFavorites(Long id) {
+        String sql = "DELETE FROM " + FAVORITE_TABLE_NAME + " WHERE id=?)";
+        jdbcTemplate.update(sql, id);
     }
 
     @Override

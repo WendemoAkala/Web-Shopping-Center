@@ -18,19 +18,13 @@ public class ItemController {
 
     @GetMapping("/all/")
     @CrossOrigin
-    public ResponseEntity<List<Item>> getAllItems() {
-        itemService.findAll();
-        return null;
+    public List<Item> getAllItems() {
+       return itemService.findAll();
     }
-    @PostMapping("/create")
+    @PostMapping(value = "/create")
     @CrossOrigin
-    public ResponseEntity<?> createItem(@RequestBody ItemRequest item) {
-        try{
-            itemService.createItem(item);
-            return null;
-        } catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-        }
+    public void createItem(@RequestBody ItemRequest item) throws Exception {
+        itemService.createItem(item);
     }
     @GetMapping("/search/")
     @CrossOrigin

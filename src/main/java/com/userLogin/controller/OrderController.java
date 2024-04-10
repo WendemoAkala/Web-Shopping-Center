@@ -32,9 +32,8 @@ public class OrderController {
 
     @GetMapping("/{orderId}")
     @CrossOrigin
-    public ResponseEntity<?> getOrderDetails(@PathVariable Long orderId) {
-        orderService.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
-        return null;
+    public List<Order> getOrderDetails(@PathVariable Long userId) {
+       return orderService.findByUserId(userId);
     }
 
     @PutMapping("/modify/{orderId}")
@@ -74,10 +73,8 @@ public class OrderController {
 
     @GetMapping("/history/{userId}")
     @CrossOrigin
-    public ResponseEntity<List<Order>> getOrderHistory(@PathVariable Long userId) {
-        CustomUser customUser = (CustomUser) orderService.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        orderService.findByUserId(userId);
-        return null;
+    public List<Order> getOrderHistory(@PathVariable Long userId) {
+        return orderService.findByUserId(userId);
     }
 
     @PutMapping("/updateStatus/{orderId}")
@@ -92,33 +89,17 @@ public class OrderController {
             throw new RuntimeException("Cannot update status for a closed order");
         }
     }
-@PostMapping("/updateItem")
+@PostMapping("/updateItem")     /*  לבדוק איך לעדכן כמות*/
 @CrossOrigin
-    private ResponseEntity<?> updateItemStock(List<OrderItem> orderItems) {
-    for (OrderItem orderItem : orderItems) {
-        Item item = orderItem.getItems();
-        int quantityOrdered = orderItem.getQuantity();
-
-        if (quantityOrdered <= item.getStockCount()) {
-            item.setStockCount(item.getStockCount() - quantityOrdered);
-            itemService.save(item);
-        } else {
-            throw new RuntimeException("Insufficient stock for item: " + item.getTitle());
-        }
-    }
-        return null;
+    private void updateItemStock(Long itemId) {
+         orderService.findOrderByUserId(itemId);
 }
 
 
     @DeleteMapping("/delete/{userId}")
     @CrossOrigin
-    public ResponseEntity<String> deleteOrder(@PathVariable Long userId) {
-        try {
+    public void deleteOrder(@PathVariable Long userId) {
             orderService.deleteOrder(userId);
-            return ResponseEntity.ok("Order deleted successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting order");
-        }
     }
 
 }

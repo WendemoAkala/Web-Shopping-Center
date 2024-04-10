@@ -28,38 +28,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(CustomUserRequest customUserRequest) throws Exception{
         CustomUser existingCustomUser = userRepository.getUserByFirstName(customUserRequest.getFirstName());
+        System.out.println(customUserRequest.getId());
         if (existingCustomUser == null) {
             throw new Exception("User whit firstname " + customUserRequest.getFirstName() + " is not exist create new user");
         }
-        existingCustomUser.setFirstName(customUserRequest.getFirstName());
-        existingCustomUser.setLastName(customUserRequest.getLastName());
-        existingCustomUser.setEmail(customUserRequest.getEmail());
-        existingCustomUser.setPhone(customUserRequest.getPhone());
-        existingCustomUser.setAddress(customUserRequest.getAddress());
-        existingCustomUser.setUsername(customUserRequest.getUsername());
-        existingCustomUser.setPassword(customUserRequest.getPassword());
+        customUserRequest.setFirstName(existingCustomUser.getFirstName());
+        customUserRequest.setLastName(existingCustomUser.getLastName());
+        customUserRequest.setEmail(existingCustomUser.getEmail());
+        customUserRequest.setPhone(existingCustomUser.getPhone());
+        customUserRequest.setAddress(existingCustomUser.getAddress());
+        customUserRequest.setUsername(existingCustomUser.getUsername());
+        customUserRequest.setPassword(existingCustomUser.getPassword());
         userRepository.updateUser(existingCustomUser);
     }
 
     @Override
     public List<CustomUser> getUsersByFirstName(String firstName) {
-//        List<CustomUser> existingCustomUser = userRepository.getUsersByFirstName(firstName);
         return userRepository.getUsersByFirstName(firstName);
-//         return null;
     }
 
     @Override
     public CustomUser getUserByFirstName(String firstName) {
-//        CustomUser existingCustomUser = userRepository.getUserByFirstName(firstName);
         return userRepository.getUserByFirstName(firstName);
-//        return null;
     }
 
     @Override
     public CustomUser save(CustomUser customUser) {
-        CustomUser existingCustomUser = userRepository.getUserByFirstName(customUser.getFirstName());
-         userRepository.updateUser(existingCustomUser);
-        return save(existingCustomUser);
+         userRepository.updateUser(customUser);
+        return save(customUser);
     }
 
     @Override
@@ -81,7 +77,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
-//       List<CustomUser> existingCustomUser = userRepository.getAllUsers();
                 userRepository.deleteUserById(id);
                System.out.println("user whit id " + id + " is deleted");
     }
