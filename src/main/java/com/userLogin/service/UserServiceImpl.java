@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(CustomUserRequest customUserRequest) throws Exception{
         CustomUser existingCustomUser = userRepository.getUserByFirstName(customUserRequest.getFirstName());
-        if (existingCustomUser != null) {
+        if (existingCustomUser == null) {
             throw new Exception("User whit firstname " + customUserRequest.getFirstName() + " is not exist create new user");
         }
         existingCustomUser.setFirstName(customUserRequest.getFirstName());

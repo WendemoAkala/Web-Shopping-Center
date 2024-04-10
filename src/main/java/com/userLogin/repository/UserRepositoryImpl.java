@@ -67,7 +67,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
     @Override
     public void updateUser(CustomUser customUser){
-        String sql = "UPDATE " + USER_TABLE_NAME + " SET first_name=?, last_name=?, email=?, phone=?, address=?, username=?, password=?  WHERE id=?";
+        String sql = "UPDATE " + USER_TABLE_NAME + " SET first_name=?, last_name=?, email=?, phone=?, address=?, username=?, password=?, roles=? permissions=?  WHERE id=?";
             jdbcTemplate.update(sql, customUser.getFirstName(), customUser.getLastName(), customUser.getEmail(), customUser.getPhone(),
                     customUser.getAddress(), customUser.getUsername(), customUser.getPassword(), customUser.getRoles(), customUser.getPermissions(),customUser.getId());
     }

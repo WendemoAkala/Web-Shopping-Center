@@ -1,9 +1,9 @@
 package com.userLogin.controller;
 
-import com.userLogin.model.CustomUser;
 import com.userLogin.model.Favorite;
 import com.userLogin.model.FavoriteRequest;
 import com.userLogin.model.Item;
+import com.userLogin.repository.mapper.FavoriteMapper;
 import com.userLogin.service.FavoriteService;
 import com.userLogin.service.ItemService;
 import com.userLogin.service.UserService;
@@ -12,9 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/public/favorites")
@@ -38,13 +36,13 @@ public class FavoriteController {
 
     @DeleteMapping("/remove")
     @CrossOrigin
-    public void removeFromFavorites(@RequestParam Long userId) {
-                favoriteService.removeFromFavorites((Favorite) getUserFavorites(userId));
+    public void removeFromFavorites(@RequestParam List<Item> item) {
+                favoriteService.removeFromFavorites(item);
             }
 
     @GetMapping(value = "/user/{userId}")
     @CrossOrigin
-    public List<List<Item>> getUserFavorites(@PathVariable Long userId) {
+    public List<Item> getUserFavorites(@PathVariable Long userId) {
          favoriteService.findByUserId(userId);
          return null;
     }

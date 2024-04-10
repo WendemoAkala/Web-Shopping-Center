@@ -1,6 +1,7 @@
 package com.userLogin.repository;
 
 import com.userLogin.model.Favorite;
+import com.userLogin.model.Item;
 import com.userLogin.repository.mapper.FavoriteMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,9 +18,9 @@ public class FavoriteRepositoryImpl implements FavoriteRepository{
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public void removeFromFavorites(Favorite favorite) {
-        String sql = "INSERT INTO " + FAVORITE_TABLE_NAME + " (user_id, items) VALUES (?, ?)";
-        jdbcTemplate.update(sql,favorite.getUserId(),favorite.getItem() );
+    public void removeFromFavorites(List<Item> item) {
+        String sql = "DELETE FROM " + FAVORITE_TABLE_NAME + " WHERE items?)";
+        jdbcTemplate.update(sql, item);
     }
 
     @Override
@@ -29,10 +30,10 @@ public class FavoriteRepositoryImpl implements FavoriteRepository{
     }
 
     @Override
-    public List<Favorite> getFavoriteListById(Long id) {
-        String sql = "SELECT * FROM " + FAVORITE_TABLE_NAME + " WHERE id=?";
+    public List<Favorite> getFavoriteListById(Long userId) {
+        String sql = "SELECT * FROM " + FAVORITE_TABLE_NAME + " WHERE user_id=?";
        try{
-           return jdbcTemplate.query(sql, new FavoriteMapper(), id);
+           return jdbcTemplate.query(sql, new FavoriteMapper(), userId);
     } catch (EmptyResultDataAccessException error){
         System.out.println("Warning: EmptyResultDataAccessException");
         return null;
