@@ -60,6 +60,11 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List<Order> findByUserId(Long userId) {
-        return null;
+        return orderRepository.findOrderByUserId(userId);
+    }
+
+    @Override
+    public Order updateOrderStatus(Long id, OrderStatus status) {
+        return orderRepository.findByUserId(id);
     }
 }

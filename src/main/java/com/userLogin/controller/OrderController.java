@@ -80,19 +80,12 @@ public class OrderController {
     @PutMapping("/updateStatus/{orderId}")
     @CrossOrigin
     public Order updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
-        Order order = (Order) orderService.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
-
-        if (order.getStatus() == OrderStatus.TEMP) {
-            order.setStatus(status);
-            return orderService.save(order);
-        } else {
-            throw new RuntimeException("Cannot update status for a closed order");
-        }
+            return orderService.updateOrderStatus(id, status);
     }
 @PostMapping("/updateItem")     /*  לבדוק איך לעדכן כמות*/
 @CrossOrigin
-    private void updateItemStock(Long itemId) {
-         orderService.findOrderByUserId(itemId);
+    private void updateItemStock(@RequestParam Long userId) {
+         orderService.findOrderByUserId(userId);
 }
 
 

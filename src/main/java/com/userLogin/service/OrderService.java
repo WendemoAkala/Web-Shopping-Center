@@ -21,4 +21,6 @@ public interface OrderService {
     Order save(Order order);
 
     List<Order> findByUserId(Long userId);
+
+    Order updateOrderStatus(Long id, OrderStatus status);
 }

@@ -51,9 +51,11 @@ public class OrderRepositoryImpl implements OrderRepository{
 
     @Override
     public List<Order> findOrderByUserId(Long userId) {
-        String sql = "SELECT * FROM " + ORDER_TABLE_NAME + " WHERE user_id=?";
+        String sql = "UPDATE  " + ORDER_TABLE_NAME + " WHERE user_id=?";
         try {
+             jdbcTemplate.update(sql,userId);
             return jdbcTemplate.query(sql,orderMapper, userId);
+
         } catch (EmptyResultDataAccessException error) {
             System.out.println("Warning: EmptyResultDataAccessException");
             return null;

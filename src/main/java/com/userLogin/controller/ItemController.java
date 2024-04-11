@@ -28,13 +28,8 @@ public class ItemController {
     }
     @GetMapping("/search/")
     @CrossOrigin
-    public ResponseEntity<List<Item>> searchItemsByName(@RequestParam String title) {
-        List<Item> searchResults = itemService.searchItemsByName(title);
-        if (searchResults.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(searchResults);
-        }
+    public List<Item> searchItemsByName(@RequestParam String title) {
+         return itemService.searchItemsByName(title);
     }
 
 }
