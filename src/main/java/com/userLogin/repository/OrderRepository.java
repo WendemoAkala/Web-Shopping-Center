@@ -1,5 +1,6 @@
 package com.userLogin.repository;
 
+import com.userLogin.model.CustomUser;
 import com.userLogin.model.Order;
 import com.userLogin.model.OrderStatus;
 

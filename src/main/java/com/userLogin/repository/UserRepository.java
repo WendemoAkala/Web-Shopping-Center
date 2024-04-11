@@ -1,6 +1,7 @@
 package com.userLogin.repository;
 
 import com.userLogin.model.CustomUser;
+import com.userLogin.model.CustomUserRequest;
 import com.userLogin.model.Favorite;
 
 import java.util.List;

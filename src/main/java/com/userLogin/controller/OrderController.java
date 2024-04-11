@@ -23,14 +23,11 @@ public class OrderController {
 
     @GetMapping("/user/{userId}")
     @CrossOrigin
-    public ResponseEntity<Order> getUserOrders(@PathVariable Long userId) {
-        CustomUser customUser = (CustomUser) userService.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-
-         orderService.findByUserAndStatusIn(customUser ,List.of(OrderStatus.TEMP, OrderStatus.CLOSE));
-         return null;
+    public List<Order> getUserOrders(@PathVariable Long userId) {
+        return orderService.findByUserId(userId);
     }
 
-    @GetMapping("/{orderId}")
+    @GetMapping("/{userId}")
     @CrossOrigin
     public List<Order> getOrderDetails(@PathVariable Long userId) {
        return orderService.findByUserId(userId);
@@ -67,8 +64,8 @@ public class OrderController {
 
     @PostMapping("/create")
     @CrossOrigin
-    public String createOrder(  @RequestBody OrderRequest orderRequest) {
-        return String.format("Anew order whit item:%s for user name: %s" + orderRequest.getUserId(), orderRequest.getTotalPrice());
+    public void createOrder(  @RequestBody OrderRequest orderRequest) throws Exception {
+        orderService.createOrder(orderRequest);
     }
 
     @GetMapping("/history/{userId}")
@@ -77,7 +74,7 @@ public class OrderController {
         return orderService.findByUserId(userId);
     }
 
-    @PutMapping("/updateStatus/{orderId}")
+    @PutMapping("/updateStatus/{id}")
     @CrossOrigin
     public Order updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
             return orderService.updateOrderStatus(id, status);

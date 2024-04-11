@@ -1,8 +1,10 @@
 package com.userLogin.repository;
 
+import com.userLogin.model.CustomUser;
 import com.userLogin.model.Order;
 import com.userLogin.model.OrderStatus;
 import com.userLogin.repository.mapper.OrderMapper;
+import com.userLogin.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,8 +22,8 @@ public class OrderRepositoryImpl implements OrderRepository{
     private OrderMapper orderMapper;
     @Override
     public void createOrder(Order order) {
-        String sql = "INSERT INTO " + ORDER_TABLE_NAME + " (user_id, order_date, shipping_address, total_price, status) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, order.getUserId(), order.getOrderDate(), order.getShippingAddress(), order.getTotalPrice(),
+        String sql = "INSERT INTO " + ORDER_TABLE_NAME + " (user_id, shipping_address, total_price, status) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, order.getUserId(), order.getShippingAddress(), order.getTotalPrice(),
                 order.getStatus());
     }
 
@@ -51,10 +53,10 @@ public class OrderRepositoryImpl implements OrderRepository{
 
     @Override
     public List<Order> findOrderByUserId(Long userId) {
-        String sql = "UPDATE  " + ORDER_TABLE_NAME + " WHERE user_id=?";
+        String sql = "SELECT * FROM  " + ORDER_TABLE_NAME + " WHERE user_id=?";
         try {
-             jdbcTemplate.update(sql,userId);
-            return jdbcTemplate.query(sql,orderMapper, userId);
+
+            return jdbcTemplate.query(sql, orderMapper, userId);
 
         } catch (EmptyResultDataAccessException error) {
             System.out.println("Warning: EmptyResultDataAccessException");

@@ -34,7 +34,7 @@ public class FavoriteController {
     }
     }
 
-    @DeleteMapping("/remove")
+    @DeleteMapping(value = "/remove/{userId}")
     @CrossOrigin
     public void removeFromFavorites(@PathVariable Long userId) {
                 favoriteService.removeFromFavorites(userId);

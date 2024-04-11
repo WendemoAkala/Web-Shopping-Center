@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface UserService {
     void createUser(CustomUserRequest customUser) throws Exception;
-    void updateUser(CustomUserRequest customUserRequest) throws Exception;
+    void updateUser(CustomUser customUser) throws Exception;
 
     List<CustomUser> getUsersByFirstName(String firstName);
 

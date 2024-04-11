@@ -1,6 +1,7 @@
 package com.userLogin.repository;
 
 import com.userLogin.model.CustomUser;
+import com.userLogin.model.CustomUserRequest;
 import com.userLogin.model.Favorite;
 import com.userLogin.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +68,9 @@ public class UserRepositoryImpl implements UserRepository {
     }
     @Override
     public void updateUser(CustomUser customUser){
-        String sql = "UPDATE " + USER_TABLE_NAME + " SET first_name=?, last_name=?, email=?, phone=?, address=?, username=?, password=?, roles=? permissions=?  WHERE id=?";
+        String sql = "UPDATE " + USER_TABLE_NAME + " SET first_name=?, last_name=?, email=?, phone=?, address=?, username=?, password=?  WHERE id=?";
             jdbcTemplate.update(sql, customUser.getFirstName(), customUser.getLastName(), customUser.getEmail(), customUser.getPhone(),
-                    customUser.getAddress(), customUser.getUsername(), customUser.getPassword(), customUser.getRoles(), customUser.getPermissions(),customUser.getId());
+                    customUser.getAddress(), customUser.getUsername(), customUser.getPassword(),customUser.getId());
     }
 
     @Override

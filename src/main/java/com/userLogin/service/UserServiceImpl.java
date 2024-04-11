@@ -26,20 +26,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(CustomUserRequest customUserRequest) throws Exception{
-        CustomUser existingCustomUser = userRepository.getUserByFirstName(customUserRequest.getFirstName());
-        System.out.println(customUserRequest.getId());
-        if (existingCustomUser == null) {
-            throw new Exception("User whit firstname " + customUserRequest.getFirstName() + " is not exist create new user");
-        }
-        customUserRequest.setFirstName(existingCustomUser.getFirstName());
-        customUserRequest.setLastName(existingCustomUser.getLastName());
-        customUserRequest.setEmail(existingCustomUser.getEmail());
-        customUserRequest.setPhone(existingCustomUser.getPhone());
-        customUserRequest.setAddress(existingCustomUser.getAddress());
-        customUserRequest.setUsername(existingCustomUser.getUsername());
-        customUserRequest.setPassword(existingCustomUser.getPassword());
-        userRepository.updateUser(existingCustomUser);
+    public void updateUser(CustomUser customUser){
+         userRepository.updateUser(customUser);
     }
 
     @Override
@@ -54,7 +42,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public CustomUser save(CustomUser customUser) {
-         userRepository.updateUser(customUser);
         return save(customUser);
     }
 

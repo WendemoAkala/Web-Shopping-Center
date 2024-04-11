@@ -27,7 +27,7 @@ public class UserController {
     }
     @PutMapping(value = "/update")
     @CrossOrigin
-    public void updateUser(@RequestParam CustomUserRequest customUser) throws Exception {
+    public void updateUser(@RequestBody CustomUser customUser) throws Exception {
              userService.updateUser(customUser);
     }
 
