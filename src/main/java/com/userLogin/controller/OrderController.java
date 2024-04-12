@@ -59,7 +59,7 @@ public class OrderController {
     }
 
     private Item modifiedItem() {
-        return null;
+        return itemService.findItemByTitle(modifiedItem().getTitle());
     }
 
     @PostMapping("/create")

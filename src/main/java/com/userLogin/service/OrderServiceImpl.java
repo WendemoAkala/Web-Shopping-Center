@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void createOrder(OrderRequest orderRequest) throws Exception {
         Order existingOrder = orderRepository.findByUserId(orderRequest.getId());
-        if(existingOrder != null){
+        if(existingOrder == null){
             throw new Exception("User Id " + orderRequest.getId() + " is already exist change Id");
         }
 
@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Order findOrderByUserId(Long userId) {
-        return (Order) orderRepository.findOrderByUserId(userId);
+        return orderRepository.findByUserId(userId);
     }
 
     @Override

@@ -70,12 +70,9 @@ public class Order {
     public OrderStatus getStatus() {
         return status;
     }
-    public Date getDate() {
-        return null;
-    }
 
     public Double getTotalPrice() {
-        return null;
+        return totalPrice;
     }
 
 }

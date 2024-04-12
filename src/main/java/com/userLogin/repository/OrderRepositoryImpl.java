@@ -3,9 +3,11 @@ package com.userLogin.repository;
 import com.userLogin.model.CustomUser;
 import com.userLogin.model.Order;
 import com.userLogin.model.OrderStatus;
+import com.userLogin.repository.mapper.ItemMapper;
 import com.userLogin.repository.mapper.OrderMapper;
 import com.userLogin.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -22,18 +24,19 @@ public class OrderRepositoryImpl implements OrderRepository{
     private OrderMapper orderMapper;
     @Override
     public void createOrder(Order order) {
-        String sql = "INSERT INTO " + ORDER_TABLE_NAME + " (user_id, shipping_address, total_price, status) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, order.getUserId(), order.getShippingAddress(), order.getTotalPrice(),
-                order.getStatus());
+
+            String sql = "INSERT INTO " + ORDER_TABLE_NAME + " (user_id, order_date, shipping_address, total_price, status) VALUES (?, ?, ?, ?, ?)";
+            jdbcTemplate.update(sql, order.getUserId(), order.getOrderDate(), order.getShippingAddress(), order.getTotalPrice(),
+                    order.getStatus());
     }
 
 
 
     @Override
     public Order findByUserId(Long userId) {
-        String sql = "SELECT * FROM " + ORDER_TABLE_NAME + " WHERE user_id=?";
+        String sql = "SELECT * FROM  " + ORDER_TABLE_NAME + " WHERE user_id=?";
         try {
-            return jdbcTemplate.queryForObject(sql,new OrderMapper(), userId);
+            return jdbcTemplate.queryForObject(sql, orderMapper, userId);
         } catch (EmptyResultDataAccessException error) {
             System.out.println("Warning: EmptyResultDataAccessException");
             return null;
