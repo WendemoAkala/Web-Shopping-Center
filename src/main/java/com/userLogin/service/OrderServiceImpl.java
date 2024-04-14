@@ -19,7 +19,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void createOrder(OrderRequest orderRequest) throws Exception {
         Order existingOrder = orderRepository.findByUserId(orderRequest.getId());
-        if(existingOrder == null){
+        if(existingOrder != null){
             throw new Exception("User Id " + orderRequest.getId() + " is already exist change Id");
         }
 

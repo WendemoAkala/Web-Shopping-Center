@@ -29,7 +29,7 @@ CREATE TABLE orders (
      order_date TIMESTAMP (23,10),
      shipping_address varchar(200) NOT NULL DEFAULT '',
      total_price DOUBLE(20) NOT NULL DEFAULT '',
-     status varchar(20) NOT NULL DEFAULT '',
+     status varchar(200) NOT NULL DEFAULT '',
      PRIMARY KEY (id),
      FOREIGN KEY (user_id) REFERENCES user (id)
      );

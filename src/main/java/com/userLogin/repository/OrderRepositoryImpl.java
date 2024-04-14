@@ -24,7 +24,6 @@ public class OrderRepositoryImpl implements OrderRepository{
     private OrderMapper orderMapper;
     @Override
     public void createOrder(Order order) {
-
             String sql = "INSERT INTO " + ORDER_TABLE_NAME + " (user_id, order_date, shipping_address, total_price, status) VALUES (?, ?, ?, ?, ?)";
             jdbcTemplate.update(sql, order.getUserId(), order.getOrderDate(), order.getShippingAddress(), order.getTotalPrice(),
                     order.getStatus());
