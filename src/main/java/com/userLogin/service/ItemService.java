@@ -18,4 +18,8 @@ public interface ItemService {
     List<Item> findAll();
 
     void save(Item item);
+
+    List<Item> getAllItemsByUserId(Long userId);
+
+    Item getItemByTitle(String title);
 }

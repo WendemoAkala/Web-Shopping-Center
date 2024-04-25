@@ -65,4 +65,23 @@ public class ItemRepositoryImpl implements ItemRepository{
         return null;
     }
     }
+
+    @Override
+    public List<Item> getAllItemsByUserId(Long userId) {
+        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE userId=?" ;
+        try{   return jdbcTemplate.query(sql, new ItemMapper(),userId);
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
+        return null;
+        }
+    }
+
+    @Override
+    public Item getItemByTitle(String title) {
+        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?" ;
+        try{   return jdbcTemplate.queryForObject(sql, new ItemMapper(),title);
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
+            return null;
+        }    }
 }

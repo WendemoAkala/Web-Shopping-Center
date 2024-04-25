@@ -8,5 +8,5 @@ import java.util.List;
 public interface FavoriteRepository {
     void removeFromFavorites(Long userId);
     void addToFavorites(Favorite favorite);
-    List<Favorite> getFavoriteListById(Long id);
+    List<Favorite> getFavoriteListById(Long userId);
 }

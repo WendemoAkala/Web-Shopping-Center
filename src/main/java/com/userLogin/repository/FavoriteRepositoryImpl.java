@@ -3,6 +3,7 @@ package com.userLogin.repository;
 import com.userLogin.model.Favorite;
 import com.userLogin.model.Item;
 import com.userLogin.repository.mapper.FavoriteMapper;
+import com.userLogin.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,7 +14,8 @@ import java.util.List;
 @Repository
 public class FavoriteRepositoryImpl implements FavoriteRepository{
     private static final String FAVORITE_TABLE_NAME = "favorite";
-
+    @Autowired
+    private ItemService itemService;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 

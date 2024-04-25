@@ -21,6 +21,17 @@ public class ItemController {
     public List<Item> getAllItems() {
        return itemService.findAll();
     }
+    @GetMapping("/all/{userId}")
+    @CrossOrigin
+    public List<Item> getAllItemsByUserId(@PathVariable Long userId) {
+        return itemService.getAllItemsByUserId(userId);
+    }
+
+    @GetMapping("/item/{title}")
+    @CrossOrigin
+    public Item getItemByTitle(@PathVariable String title) {
+        return itemService.getItemByTitle(title);
+    }
     @PostMapping(value = "/create")
     @CrossOrigin
     public void createItem(@RequestBody ItemRequest item) throws Exception {

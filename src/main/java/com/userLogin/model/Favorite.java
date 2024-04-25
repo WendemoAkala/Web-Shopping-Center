@@ -1,5 +1,7 @@
 package com.userLogin.model;
 
+import com.userLogin.service.ItemService;
+
 import java.util.List;
 
 public class Favorite {

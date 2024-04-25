@@ -26,6 +26,7 @@ public class UserRepositoryImpl implements UserRepository {
         String sql = "INSERT INTO " + USER_TABLE_NAME + " (first_name, last_name, email, phone, address,username, password, roles, permissions) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, customUser.getFirstName(), customUser.getLastName(), customUser.getEmail(), customUser.getPhone(),
                             customUser.getAddress(), customUser.getUsername(), customUser.getPassword(), customUser.getRoles(), customUser.getPermissions());
+        System.out.println("created user from UI");
     }
 
     @Override

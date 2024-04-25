@@ -11,4 +11,8 @@ public interface ItemRepository {
     List<Item> searchItemsByName(String title);
 
     List<Item> findAll();
+
+    List<Item> getAllItemsByUserId(Long userId);
+
+    Item getItemByTitle(String title);
 }

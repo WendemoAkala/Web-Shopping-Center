@@ -15,6 +15,8 @@ import java.util.List;
 public class FavoriteServiceImpl implements FavoriteService{
     @Autowired
     private FavoriteRepository favoriteRepository;
+    @Autowired
+    private  ItemService itemService;
     @Override
     public void addToFavorites(FavoriteRequest favoriteRequest) throws Exception {
         List<Favorite> existingFavorite = favoriteRepository.getFavoriteListById(favoriteRequest.getId());

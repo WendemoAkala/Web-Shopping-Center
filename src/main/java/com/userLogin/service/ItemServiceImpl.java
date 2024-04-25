@@ -46,4 +46,14 @@ public class ItemServiceImpl implements ItemService{
     public void save(Item item) {
 
     }
+
+    @Override
+    public List<Item> getAllItemsByUserId(Long userId) {
+        return itemRepository.getAllItemsByUserId(userId);
+    }
+
+    @Override
+    public Item getItemByTitle(String title) {
+        return itemRepository.getItemByTitle(title);
+    }
 }
