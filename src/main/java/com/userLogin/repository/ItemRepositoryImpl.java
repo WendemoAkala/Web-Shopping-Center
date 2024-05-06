@@ -47,8 +47,7 @@ public class ItemRepositoryImpl implements ItemRepository{
         }
     }
     @Override
-    public List<Item> searchItemsByName(String title) {
-        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
+    public List<Item> searchItemsByTitle(String title) {        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
         try {
             return jdbcTemplate.query(sql, itemMapper, title);
         } catch (EmptyResultDataAccessException error) {
@@ -84,4 +83,5 @@ public class ItemRepositoryImpl implements ItemRepository{
             System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }    }
+
 }

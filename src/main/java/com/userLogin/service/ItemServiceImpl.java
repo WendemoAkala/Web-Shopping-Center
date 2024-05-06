@@ -29,7 +29,7 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public List<Item> searchItemsByName(String title) {
-       return itemRepository.searchItemsByName(title);
+       return itemRepository.searchItemsByTitle(title);
     }
 
     @Override

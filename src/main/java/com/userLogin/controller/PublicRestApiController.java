@@ -16,8 +16,8 @@ public class PublicRestApiController {
 
     @CrossOrigin
     @GetMapping("/test2")
-    public ResponseEntity<?> test2(){
-        return ResponseEntity.ok(new TestResponse("API Test 1"));
+    public ResponseEntity<?> test2(@RequestParam String jwt){
+        return ResponseEntity.ok(new TestResponse("API Test 2"));
     }
 }
 

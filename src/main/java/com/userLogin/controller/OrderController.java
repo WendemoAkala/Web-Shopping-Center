@@ -38,7 +38,7 @@ public class OrderController {
     public ResponseEntity<Order> modifyOrder(@PathVariable Long orderId, @RequestBody Order modifiedOrder) {
         Order existingOrder = (Order) orderService.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
 
-        if (existingOrder.getStatus().name().equals(OrderStatus.TEMP)) {
+        if (existingOrder.getStatus().name().equals(modifiedOrder.getStatus().name())) {
           List<OrderItem> modifiedItems = (List<OrderItem>) existingOrder;
 
             for (OrderItem modifiedItem : modifiedItems) {
@@ -79,7 +79,7 @@ public class OrderController {
     public Order updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
             return orderService.updateOrderStatus(id, status);
     }
-@PostMapping("/updateItem")     /*  לבדוק איך לעדכן כמות*/
+@PutMapping("/updateItem")     /*  לבדוק איך לעדכן כמות*/
 @CrossOrigin
     private void updateItemStock(@RequestParam Long userId) {
          orderService.findOrderByUserId(userId);
