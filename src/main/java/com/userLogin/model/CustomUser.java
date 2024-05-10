@@ -36,6 +36,7 @@ public class CustomUser {
 
     protected CustomUser(){}
 
+
     public long getId() {
         return id;
     }
