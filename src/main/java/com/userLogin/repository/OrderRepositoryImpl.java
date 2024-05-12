@@ -1,9 +1,13 @@
 package com.userLogin.repository;
 
+import com.userLogin.model.CustomUser;
 import com.userLogin.model.Order;
 import com.userLogin.model.OrderStatus;
+import com.userLogin.repository.mapper.ItemMapper;
 import com.userLogin.repository.mapper.OrderMapper;
+import com.userLogin.repository.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,20 +24,26 @@ public class OrderRepositoryImpl implements OrderRepository{
     private OrderMapper orderMapper;
     @Override
     public void createOrder(Order order) {
-        String sql = "INSERT INTO " + ORDER_TABLE_NAME + " (user_id, order_date, shipping_address, total_price, status) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, order.getUserId(), order.getOrderDate(), order.getShippingAddress(), order.getTotalPrice(),
-                order.getStatus());
+            String sql = "INSERT INTO " + ORDER_TABLE_NAME + " (user_id, order_date, shipping_address, total_price, status) VALUES (?, ?, ?, ?, ?)";
+            jdbcTemplate.update(sql, order.getUserId(), order.getOrderDate(), order.getShippingAddress(), order.getTotalPrice(),
+                    order.getStatus().name());
     }
 
 
 
     @Override
-    public List<Order> findByUserId(Long userId) {
-        return null;
+    public Order findByUserId(Long userId) {
+        String sql = "SELECT * FROM  " + ORDER_TABLE_NAME + " WHERE user_id=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, orderMapper, userId);
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
+            return null;
+        }
     }
 
     @Override
-    public List<Order> findOrderByStatus( OrderStatus status) {
+    public List<Order> findOrdersByStatus( OrderStatus status) {
         String sql = "SELECT * FROM " + ORDER_TABLE_NAME + " WHERE status=?";
         try {
             return jdbcTemplate.query(sql,  orderMapper, status);
@@ -45,16 +55,21 @@ public class OrderRepositoryImpl implements OrderRepository{
 
     @Override
     public List<Order> findOrderByUserId(Long userId) {
-        String sql = "SELECT * FROM " + ORDER_TABLE_NAME + " WHERE user_id=?";
+        String sql = "SELECT * FROM  " + ORDER_TABLE_NAME + " WHERE user_id=?";
         try {
-            return Collections.singletonList(jdbcTemplate.queryForObject(sql, new OrderMapper(), userId));
+
+            return jdbcTemplate.query(sql, orderMapper, userId);
+
         } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }
     }
 
     @Override
-    public void deleteById(Long customUser) {
+    public void deleteById(Long id) {
+        String sql = "DELETE FROM " + ORDER_TABLE_NAME + " WHERE user_id=?";
+             jdbcTemplate.update(sql, id);
 
     }
 

@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Collections;
 import java.util.List;
 
 @Repository
 public class ItemRepositoryImpl implements ItemRepository{
     private static final String ITEM_TABLE_NAME = "item";
 
+    @Autowired
+    private ItemMapper itemMapper;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -28,8 +28,9 @@ public class ItemRepositoryImpl implements ItemRepository{
     public Item findItemByTitle(String title) {
         String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
         try {
-            return jdbcTemplate.queryForObject(sql, new ItemMapper(), title);
+            return jdbcTemplate.queryForObject(sql, itemMapper, title);
         } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }
     }
@@ -39,18 +40,48 @@ public class ItemRepositoryImpl implements ItemRepository{
 
         String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
         try {
-            return Collections.singletonList(jdbcTemplate.queryForObject(sql, new ItemMapper(), title));
+            return jdbcTemplate.query(sql, itemMapper, title);
         } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }
     }
     @Override
-    public List<Item> searchItemsByName(String title) {
-        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
+    public List<Item> searchItemsByTitle(String title) {        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
         try {
-            return Collections.singletonList(jdbcTemplate.queryForObject(sql, new ItemMapper(), title));
+            return jdbcTemplate.query(sql, itemMapper, title);
         } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }
     }
+    @Override
+    public List<Item> findAll(){
+        String sql = "SELECT * FROM " + ITEM_TABLE_NAME;
+     try{   return jdbcTemplate.query(sql, new ItemMapper());
+    } catch (EmptyResultDataAccessException error) {
+        System.out.println("Warning: EmptyResultDataAccessException");
+        return null;
+    }
+    }
+
+    @Override
+    public List<Item> getAllItemsByUserId(Long userId) {
+        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE userId=?" ;
+        try{   return jdbcTemplate.query(sql, new ItemMapper(),userId);
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
+        return null;
+        }
+    }
+
+    @Override
+    public Item getItemByTitle(String title) {
+        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?" ;
+        try{   return jdbcTemplate.queryForObject(sql, new ItemMapper(),title);
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
+            return null;
+        }    }
+
 }

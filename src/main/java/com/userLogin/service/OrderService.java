@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderService {
-    void createOrder(OrderRequest Order) throws Exception;
+    void createOrder(OrderRequest orderRequest) throws Exception;
     Order findOrderByUserId(Long userId);
 
     void deleteOrder(Long userId);
@@ -21,4 +21,6 @@ public interface OrderService {
     Order save(Order order);
 
     List<Order> findByUserId(Long userId);
+
+    Order updateOrderStatus(Long id, OrderStatus status);
 }

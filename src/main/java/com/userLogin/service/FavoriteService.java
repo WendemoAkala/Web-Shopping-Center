@@ -12,7 +12,7 @@ public interface FavoriteService {
 
     Favorite save(Favorite favorite);
 
-    void delete(Favorite favorite);
+    void removeFromFavorites(Long userId);
 
     List<Favorite> findByCustomUser(CustomUser customUser);
     List<Favorite> findByUserId(Long userId);

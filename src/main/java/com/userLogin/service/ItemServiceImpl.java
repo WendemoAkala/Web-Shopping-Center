@@ -14,7 +14,11 @@ public class ItemServiceImpl implements ItemService{
     @Autowired
     private ItemRepository itemRepository;
     @Override
-    public void createItem(ItemRequest item) {
+    public void createItem(ItemRequest item) throws Exception {
+        Item item1 = itemRepository.findItemByTitle(item.getTitle());
+        if(item1 != null){
+            throw new Exception("Title " + item1.getTitle() + " is already exist");
+        }
         itemRepository.createItem(item.toItem());
     }
 
@@ -25,8 +29,7 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public List<Item> searchItemsByName(String title) {
-        itemRepository.searchItemsByName(title);
-        return null;
+       return itemRepository.searchItemsByTitle(title);
     }
 
     @Override
@@ -36,11 +39,21 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public List<Item> findAll() {
-        return null;
+        return itemRepository.findAll();
     }
 
     @Override
     public void save(Item item) {
 
+    }
+
+    @Override
+    public List<Item> getAllItemsByUserId(Long userId) {
+        return itemRepository.getAllItemsByUserId(userId);
+    }
+
+    @Override
+    public Item getItemByTitle(String title) {
+        return itemRepository.getItemByTitle(title);
     }
 }

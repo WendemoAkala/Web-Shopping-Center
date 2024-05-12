@@ -15,13 +15,14 @@ import java.util.List;
 public class FavoriteServiceImpl implements FavoriteService{
     @Autowired
     private FavoriteRepository favoriteRepository;
+    @Autowired
+    private  ItemService itemService;
     @Override
     public void addToFavorites(FavoriteRequest favoriteRequest) throws Exception {
-//        Favorite existingFavorite = favoriteRepository.createFavorite(favoriteRequest.getUserId());
-//        System.out.println(existingFavorite);
-//        if(existingFavorite != null){
-//            throw new Exception("Item " + favoriteRequest.getUserId() + " is already taken");
-//        }
+        List<Favorite> existingFavorite = favoriteRepository.getFavoriteListById(favoriteRequest.getId());
+        if(existingFavorite == null){
+            throw new Exception("Item " + favoriteRequest.getId() + " is already taken");
+        }
             favoriteRepository.addToFavorites(favoriteRequest.toFavorite());
 
     }
@@ -37,17 +38,17 @@ public class FavoriteServiceImpl implements FavoriteService{
     }
 
     @Override
-    public void delete(Favorite favorite) {
-
+    public void removeFromFavorites(Long userId) {
+        favoriteRepository.removeFromFavorites(userId);
     }
 
     @Override
     public List<Favorite> findByCustomUser(CustomUser customUser) {
-        return null;
+        return favoriteRepository.getFavoriteListById(customUser.getId());
     }
 
     @Override
     public List<Favorite> findByUserId(Long userId) {
-        return null;
+        return favoriteRepository.getFavoriteListById(userId);
     }
 }

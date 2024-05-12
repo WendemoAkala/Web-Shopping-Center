@@ -6,13 +6,13 @@ DROP TABLE IF EXISTS item;
 
 CREATE TABLE user (
      id int(11) unsigned NOT NULL AUTO_INCREMENT,
-     first_name varchar(20) NOT NULL DEFAULT '',
-     last_name varchar(20) NOT NULL DEFAULT '',
-     email varchar(20) NOT NULL DEFAULT '',
-     phone varchar(20) NOT NULL DEFAULT '',
-     address varchar(20) NOT NULL DEFAULT '',
-     username varchar(20) NOT NULL DEFAULT '',
-     password varchar(20) NOT NULL DEFAULT '',
+     first_name varchar(255) NOT NULL DEFAULT '',
+     last_name varchar(255) NOT NULL DEFAULT '',
+     email varchar(255) NOT NULL DEFAULT '',
+     phone varchar(255) NOT NULL DEFAULT '',
+     address varchar(255) NOT NULL DEFAULT '',
+     username varchar(255) NOT NULL DEFAULT '',
+     password varchar(255) NOT NULL DEFAULT '',
      active tinyint(1) NOT NULL DEFAULT '1',
      roles varchar(200) NOT NULL DEFAULT '',
      permissions varchar(200) NOT NULL DEFAULT '',
@@ -28,8 +28,8 @@ CREATE TABLE orders (
      user_id int (1200) unsigned NOT NULL AUTO_INCREMENT,
      order_date TIMESTAMP (23,10),
      shipping_address varchar(200) NOT NULL DEFAULT '',
-     total_price DOUBLE(200) NOT NULL DEFAULT '',
-     status varchar(20) NOT NULL DEFAULT '',
+     total_price DOUBLE(20) NOT NULL DEFAULT '',
+     status varchar(200) NOT NULL DEFAULT '',
      PRIMARY KEY (id),
      FOREIGN KEY (user_id) REFERENCES user (id)
      );

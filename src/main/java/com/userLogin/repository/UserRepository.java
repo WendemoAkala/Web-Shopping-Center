@@ -1,6 +1,8 @@
 package com.userLogin.repository;
 
 import com.userLogin.model.CustomUser;
+import com.userLogin.model.CustomUserRequest;
+import com.userLogin.model.Favorite;
 
 import java.util.List;
 
@@ -15,4 +17,6 @@ public interface UserRepository {
     CustomUser findUserById(Long id);
 
     CustomUser getUserByFirstName(String firstName);
+
+    List<CustomUser> getAllUsers();
 }

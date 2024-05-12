@@ -16,31 +16,31 @@ public class ItemController {
     private ItemService itemService;
 
 
-    @GetMapping("/all")
+    @GetMapping("/all/")
     @CrossOrigin
-    public ResponseEntity<List<Item>> getAllItems() {
-        itemService.findAll();
-        return null;
+    public List<Item> getAllItems() {
+       return itemService.findAll();
     }
-    @PostMapping("/create")
+    @GetMapping("/all/{userId}")
     @CrossOrigin
-    public ResponseEntity<?> createItem(@RequestBody ItemRequest item) {
-        try{
-            itemService.createItem(item);
-            return null;
-        } catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-        }
+    public List<Item> getAllItemsByUserId(@PathVariable Long userId) {
+        return itemService.getAllItemsByUserId(userId);
     }
-    @GetMapping("/search")
+
+    @GetMapping("/item/{title}")
     @CrossOrigin
-    public ResponseEntity<List<Item>> searchItemsByName(@RequestParam String title) {
-        List<Item> searchResults = itemService.searchItemsByName(title);
-        if (searchResults.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(searchResults);
-        }
+    public Item getItemByTitle(@PathVariable String title) {
+        return itemService.getItemByTitle(title);
+    }
+    @PostMapping(value = "/create")
+    @CrossOrigin
+    public void createItem(@RequestBody ItemRequest item) throws Exception {
+        itemService.createItem(item);
+    }
+    @GetMapping("/search/")
+    @CrossOrigin
+    public List<Item> searchItemsByName(@RequestParam String title) {
+         return itemService.searchItemsByName(title);
     }
 
 }

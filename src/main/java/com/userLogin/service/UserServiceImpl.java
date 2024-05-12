@@ -2,6 +2,7 @@ package com.userLogin.service;
 
 import com.userLogin.model.CustomUser;
 import com.userLogin.model.CustomUserRequest;
+import com.userLogin.model.Favorite;
 import com.userLogin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,24 +26,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(CustomUserRequest customUserRequest) {
-
+    public void updateUser(CustomUser customUser){
+         userRepository.updateUser(customUser);
     }
 
     @Override
     public List<CustomUser> getUsersByFirstName(String firstName) {
-         userRepository.getUsersByFirstName(firstName);
-         return null;
+        return userRepository.getUsersByFirstName(firstName);
     }
+
     @Override
     public CustomUser getUserByFirstName(String firstName) {
-        userRepository.getUserByFirstName(firstName);
-        return null;
+        return userRepository.getUserByFirstName(firstName);
     }
+
+    @Override
+    public CustomUser save(CustomUser customUser) {
+        return save(customUser);
+    }
+
+    @Override
+    public List<CustomUser> getAllUsers() {
+       return userRepository.getAllUsers();
+
+    }
+
     @Override
     public CustomUser findByUsername(String username) {
-        userRepository.findByUsername(username);
-        return null;
+//        CustomUser existingCustomUser = userRepository.findByUsername(username);
+        return  userRepository.findByUsername(username);
     }
 
     @Override
@@ -52,11 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUserById(Long id) {
-//        CustomUser existingCustomUser = userRepository.findUserById(id);
-        try{
-            userRepository.deleteUserById(id);
-        }catch (EnumConstantNotPresentException e){
-            System.out.println("user not found");
-        }
+                userRepository.deleteUserById(id);
+               System.out.println("user whit id " + id + " is deleted");
     }
 }
