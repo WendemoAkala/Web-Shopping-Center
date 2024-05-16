@@ -42,8 +42,8 @@ CREATE TABLE item (
       id int(11) unsigned NOT NULL AUTO_INCREMENT,
       title varchar(200) NOT NULL DEFAULT '',
       photo_url varchar(200) NOT NULL DEFAULT '',
-      price DOUBLE(20) NOT NULL DEFAULT '',
-      stock_count int(11) NOT NULL DEFAULT '',
+      price DOUBLE NOT NULL DEFAULT 0,
+      stock_count int(11) NOT NULL DEFAULT 0,
       PRIMARY KEY (id)
       );
 

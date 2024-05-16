@@ -56,9 +56,11 @@ public class ItemRequest {
     }
 
     public Item toItem(){
+        String defaultTitle = "Default Title"; // Set a default title if needed
+        String itemTitle = this.title != null ? this.title : defaultTitle;
         return new Item(
                 null,
-                this.title,
+                itemTitle,
                 this.photoUrl,
                 this.price,
                 this.stockCount
