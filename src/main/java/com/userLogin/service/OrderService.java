@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface OrderService {
     void createOrder(OrderRequest orderRequest) throws Exception;
-    Order findOrderByUserId(Long userId);
+    void findOrderByUserId(Long userId);
 
     void deleteOrder(Long userId);
 

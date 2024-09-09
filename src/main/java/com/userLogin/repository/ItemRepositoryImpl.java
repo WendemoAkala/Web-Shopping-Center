@@ -36,6 +36,17 @@ public class ItemRepositoryImpl implements ItemRepository{
     }
 
     @Override
+    public Item findItemById(Long id) {
+        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE id=?";
+        try {
+            System.out.println("Item result: " + itemMapper);
+            return jdbcTemplate.queryForObject(sql,itemMapper, id);
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: 111111111111 Test EmptyResultDataAccessException");
+            return null;
+        }
+    }
+    @Override
     public List<Item> findByTitleContaining(String title) {
 
         String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
@@ -47,18 +58,39 @@ public class ItemRepositoryImpl implements ItemRepository{
         }
     }
     @Override
-    public List<Item> searchItemsByTitle(String title) {        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
+    public List<Item> searchItemsByTitle(String title) {
+        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?";
         try {
+            System.out.println("Search result: " + itemMapper);
             return jdbcTemplate.query(sql, itemMapper, title);
         } catch (EmptyResultDataAccessException error) {
             System.out.println("Warning: EmptyResultDataAccessException");
             return null;
         }
     }
+
+    @Override
+    public Item getItemById(Long id) {
+        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE id=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, itemMapper, id);
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: Test EmptyResultDataAccessException");
+            return null;
+        }
+    }
+
+    @Override
+    public void save(Item item1) {
+        String sql = "INSERT INTO " + ITEM_TABLE_NAME + " (title,photo_url, price, stock_count) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, item1.getTitle(), item1.getPhotoUrl(), item1.getPrice(),
+                item1.getStockCount());
+    }
+
     @Override
     public List<Item> findAll(){
         String sql = "SELECT * FROM " + ITEM_TABLE_NAME;
-     try{   return jdbcTemplate.query(sql, new ItemMapper());
+     try{   return jdbcTemplate.query(sql, itemMapper);
     } catch (EmptyResultDataAccessException error) {
         System.out.println("Warning: EmptyResultDataAccessException");
         return null;
@@ -66,9 +98,9 @@ public class ItemRepositoryImpl implements ItemRepository{
     }
 
     @Override
-    public List<Item> getAllItemsByUserId(Long userId) {
-        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE userId=?" ;
-        try{   return jdbcTemplate.query(sql, new ItemMapper(),userId);
+    public Item getAllItemsById(Long id) {
+        String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE id=?" ;
+        try{   return jdbcTemplate.queryForObject(sql, itemMapper,id);
         } catch (EmptyResultDataAccessException error) {
             System.out.println("Warning: EmptyResultDataAccessException");
         return null;
@@ -78,7 +110,7 @@ public class ItemRepositoryImpl implements ItemRepository{
     @Override
     public Item getItemByTitle(String title) {
         String sql = "SELECT * FROM " + ITEM_TABLE_NAME + " WHERE title=?" ;
-        try{   return jdbcTemplate.queryForObject(sql, new ItemMapper(),title);
+        try{   return jdbcTemplate.queryForObject(sql, itemMapper,title);
         } catch (EmptyResultDataAccessException error) {
             System.out.println("Warning: EmptyResultDataAccessException");
             return null;

@@ -1,16 +1,16 @@
 package com.userLogin.model;
 
-import com.userLogin.service.ItemService;
-
 import java.util.List;
 
 public class Favorite {
         private Long id;
         private Long userId;
-        private List<Item> item;
+        private Item item;
 
+    public Favorite() {
+    }
 
-        public Favorite(Long id, Long userId, List<Item> item) {
+    public Favorite(Long id, Long userId, Item item) {
             this.id = id;
             this.userId = userId;
             this.item = item;
@@ -32,11 +32,11 @@ public class Favorite {
             this.userId = userId;
         }
 
-        public List<Item> getItem() {
+        public Item getItem() {
             return item;
         }
 
-        public void setItem(List<Item> item) {
+        public void setItem(Item item) {
             this.item = item;
         }
 

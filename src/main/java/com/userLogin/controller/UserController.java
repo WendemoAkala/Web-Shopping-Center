@@ -3,6 +3,8 @@ package com.userLogin.controller;
 import com.userLogin.model.CustomUser;
 import com.userLogin.model.CustomUserRequest;
 import com.userLogin.repository.UserRepository;
+import com.userLogin.service.FavoriteService;
+import com.userLogin.service.OrderService;
 import com.userLogin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,6 +21,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    private OrderService orderService;
+    private FavoriteService favoriteService;
 
     @PostMapping(value = "/create")
     @CrossOrigin
@@ -31,10 +35,12 @@ public class UserController {
              userService.updateUser(customUser);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/delete/{id}/{user_id}")
     @CrossOrigin
-    public void deleteUserById(@PathVariable Long id){
-                userService.deleteUserById(id);
+    public void deleteUserById(@PathVariable Long id, @PathVariable Long userId){
+        userService.deleteUserById(id);
+        orderService.deleteOrder(userId);
+        favoriteService.removeFromFavorites(userId);
 
     }
     @GetMapping(value = "/All/")
@@ -42,7 +48,7 @@ public class UserController {
     public List<CustomUser> getUsersByFirstName(@RequestParam String firstName){
         return userService.getUsersByFirstName(firstName);
     }
-    @GetMapping(value = "/")
+    @GetMapping(value = "/getUserByFirstName/")
     @CrossOrigin
     public CustomUser getUserByFirstName(@RequestParam String firstName){
         return userService.getUserByFirstName(firstName);

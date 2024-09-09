@@ -1,6 +1,6 @@
 package com.userLogin.model;
 
-public class ItemRequest {
+public class  ItemResponse {
     private Long id;
     private String title;
     private String photoUrl;
@@ -8,7 +8,7 @@ public class ItemRequest {
     private int stockCount;
 
 
-    public ItemRequest(Long id, String title, String photoUrl, double price, int stockCount) {
+    public ItemResponse(Long id, String title, String photoUrl, double price, int stockCount) {
         this.id = id;
         this.title = title;
         this.photoUrl = photoUrl;
@@ -16,7 +16,7 @@ public class ItemRequest {
         this.stockCount = stockCount;
     }
 
-    public ItemRequest() {
+    public ItemResponse() {
     }
 
     public Long getId() {
@@ -57,17 +57,6 @@ public class ItemRequest {
 
     public void setStockCount(int stockCount) {
         this.stockCount = stockCount;
-    }
-
-    public Item toItem(){
-
-        return new Item(
-                null,
-                this.title,
-                this.photoUrl,
-                this.price,
-                this.stockCount
-        );
     }
 
 }

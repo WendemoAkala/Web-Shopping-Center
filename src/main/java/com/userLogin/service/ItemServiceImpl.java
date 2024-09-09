@@ -14,12 +14,12 @@ public class ItemServiceImpl implements ItemService{
     @Autowired
     private ItemRepository itemRepository;
     @Override
-    public void createItem(ItemRequest item) throws Exception {
-        Item item1 = itemRepository.findItemByTitle(item.getTitle());
+    public void createItem(ItemRequest itemRequest) throws Exception {
+        Item item1 = itemRepository.findItemById(itemRequest.getId());
         if(item1 != null){
-            throw new Exception("Title " + item1.getTitle() + " is already exist");
+            throw new Exception("id " + item1.getTitle() + " is already exist");
         }
-        itemRepository.createItem(item.toItem());
+        itemRepository.createItem(itemRequest.toItem());
     }
 
     @Override
@@ -33,8 +33,8 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public Optional<Object> findById(Long id) {
-        return Optional.empty();
+    public Item findById(Long id) {
+        return itemRepository.findItemById(id);
     }
 
     @Override
@@ -48,12 +48,17 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public List<Item> getAllItemsByUserId(Long userId) {
-        return itemRepository.getAllItemsByUserId(userId);
+    public Item getAllItemsById(Long id) {
+        return itemRepository.getAllItemsById(id);
     }
 
     @Override
     public Item getItemByTitle(String title) {
         return itemRepository.getItemByTitle(title);
+    }
+
+    @Override
+    public Item getItemById(Long id) {
+        return itemRepository.getItemById(id);
     }
 }

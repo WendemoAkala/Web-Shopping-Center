@@ -13,7 +13,7 @@ public interface UserService {
 
     List<CustomUser> getUsersByFirstName(String firstName);
 
-    Optional<Object> findById(Long id);
+//    Optional<Object> findById(Long id);
     CustomUser findByUsername(String username);
 
     void deleteUserById(Long id);

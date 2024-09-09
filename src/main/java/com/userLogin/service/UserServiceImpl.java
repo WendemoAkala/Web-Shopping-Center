@@ -30,6 +30,8 @@ public class UserServiceImpl implements UserService {
          userRepository.updateUser(customUser);
     }
 
+
+
     @Override
     public List<CustomUser> getUsersByFirstName(String firstName) {
         return userRepository.getUsersByFirstName(firstName);
@@ -57,10 +59,10 @@ public class UserServiceImpl implements UserService {
         return  userRepository.findByUsername(username);
     }
 
-    @Override
-    public Optional<Object> findById(Long id) {
-        return Optional.empty();
-    }
+//    @Override
+//    public Optional<Object> findById(Long id) {
+//        return Optional.empty();
+//    }
 
     @Override
     public void deleteUserById(Long id) {

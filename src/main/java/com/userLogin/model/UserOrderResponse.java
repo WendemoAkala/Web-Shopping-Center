@@ -13,6 +13,23 @@ public class UserOrderResponse {
         this.customUser = customUser;
         this.userOrderList = userOrderList;
     }
+
+    public CustomUser getCustomUser() {
+        return customUser;
+    }
+
+    public void setCustomUser(CustomUser customUser) {
+        this.customUser = customUser;
+    }
+
+    public List<Order> getUserOrderList() {
+        return userOrderList;
+    }
+
+    public void setUserOrderList(List<Order> userOrderList) {
+        this.userOrderList = userOrderList;
+    }
+
     public UserOrderResponse toUserOrderResponse(
             CustomUser customUser,
             List<Order> userOrderList ){

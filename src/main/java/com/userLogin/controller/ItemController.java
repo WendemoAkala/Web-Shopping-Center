@@ -1,11 +1,8 @@
 package com.userLogin.controller;
 import com.userLogin.model.Item;
 import com.userLogin.model.ItemRequest;
-import com.userLogin.model.Order;
 import com.userLogin.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,10 +18,10 @@ public class ItemController {
     public List<Item> getAllItems() {
        return itemService.findAll();
     }
-    @GetMapping("/all/{userId}")
+    @GetMapping("/all/{id}")
     @CrossOrigin
-    public List<Item> getAllItemsByUserId(@PathVariable Long userId) {
-        return itemService.getAllItemsByUserId(userId);
+    public Item getAllItemsById(@PathVariable Long id) {
+        return itemService.getAllItemsById(id);
     }
 
     @GetMapping("/item/{title}")
@@ -32,10 +29,16 @@ public class ItemController {
     public Item getItemByTitle(@PathVariable String title) {
         return itemService.getItemByTitle(title);
     }
+    @GetMapping("/item/{id}")
+    @CrossOrigin
+    public Item getItemById(@PathVariable Long id) {
+        return itemService.getItemById(id);
+    }
     @PostMapping(value = "/create")
     @CrossOrigin
-    public void createItem(@RequestBody ItemRequest item) throws Exception {
-        itemService.createItem(item);
+    public void createItem(@RequestBody ItemRequest itemRequests) throws Exception {
+        itemService.createItem( itemRequests);
+
     }
     @GetMapping("/search/")
     @CrossOrigin

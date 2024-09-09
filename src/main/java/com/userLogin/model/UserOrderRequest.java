@@ -10,4 +10,20 @@ public class UserOrderRequest {
         this.customUser = customUser;
         this.userOrder = userOrder;
     }
+
+    public CustomUser getCustomUser() {
+        return customUser;
+    }
+
+    public void setCustomUser(CustomUser customUser) {
+        this.customUser = customUser;
+    }
+
+    public Order getUserOrder() {
+        return userOrder;
+    }
+
+    public void setUserOrder(Order userOrder) {
+        this.userOrder = userOrder;
+    }
 }

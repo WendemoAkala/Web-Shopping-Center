@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserRepository {
     void createUser(CustomUser customUser);
-    List<CustomUser> getUsersByFirstName(String firstName);
+   List<CustomUser> getUsersByFirstName(String firstName);
     void deleteUserById(Long id);
 
     void updateUser(CustomUser customUser);

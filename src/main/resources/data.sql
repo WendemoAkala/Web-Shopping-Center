@@ -25,7 +25,7 @@ INSERT INTO user (username, password, active, roles, permissions) VALUES
 
 CREATE TABLE orders (
      id int(11) unsigned NOT NULL AUTO_INCREMENT,
-     user_id int (1200) unsigned NOT NULL AUTO_INCREMENT,
+     user_id int (11) unsigned NOT NULL AUTO_INCREMENT,
      order_date TIMESTAMP (23,10),
      shipping_address varchar(200) NOT NULL DEFAULT '',
      total_price DOUBLE(20) NOT NULL DEFAULT '',
@@ -40,8 +40,8 @@ INSERT INTO orders (user_id, shipping_address, total_price, status) VALUES
 
 CREATE TABLE item (
       id int(11) unsigned NOT NULL AUTO_INCREMENT,
-      title varchar(200) NOT NULL DEFAULT '',
-      photo_url varchar(200) NOT NULL DEFAULT '',
+      title varchar(255) NOT NULL DEFAULT '',
+      photo_url varchar(255) NOT NULL DEFAULT '',
       price DOUBLE NOT NULL DEFAULT 0,
       stock_count int(11) NOT NULL DEFAULT 0,
       PRIMARY KEY (id)
@@ -49,7 +49,7 @@ CREATE TABLE item (
 
 INSERT INTO item (title, photo_url, price, stock_count)VALUES
 
-     ( 'Corpuls3', 'Corpuls3', 10, 10),
+    ( 'Corpuls3', 'Corpuls3', 100, 10),
      ( 'Corpuls1', 'Corpuls1', 8, 13),
      ('CorpulsCPR', 'CorpulsCPR',10, 8),
      ('CorpulsAED', 'CorpulsAED', 20, 10),

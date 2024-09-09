@@ -29,15 +29,15 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Order findOrderByUserId(Long userId) {
-        return orderRepository.findByUserId(userId);
+    public void findOrderByUserId(Long userId) {
+        orderRepository.findByUserId(userId);
     }
 
     @Override
-    public void deleteOrder(Long id) {
-        Order existingOrder = orderRepository.findByUserId(id);
+    public void deleteOrder(Long userId) {
+        Order existingOrder = orderRepository.findByUserId(userId);
         try{
-           orderRepository.deleteById(id);
+           orderRepository.deleteById(userId);
          }catch (EnumConstantNotPresentException e){
           System.out.println("user not found");
          }

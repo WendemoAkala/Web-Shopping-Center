@@ -1,6 +1,7 @@
 package com.userLogin.repository.mapper;
 
 import com.userLogin.model.CustomUser;
+import com.userLogin.model.UserAddress;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

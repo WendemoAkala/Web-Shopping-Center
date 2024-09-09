@@ -2,8 +2,6 @@ package com.userLogin.controller;
 
 import com.userLogin.model.Favorite;
 import com.userLogin.model.FavoriteRequest;
-import com.userLogin.model.Item;
-import com.userLogin.repository.mapper.FavoriteMapper;
 import com.userLogin.service.FavoriteService;
 import com.userLogin.service.ItemService;
 import com.userLogin.service.UserService;
@@ -25,13 +23,9 @@ public class FavoriteController {
     private FavoriteService favoriteService;
     @PostMapping("/add")
     @CrossOrigin
-    public ResponseEntity<?> addToFavorites(@RequestBody FavoriteRequest favoriteRequest){
-        try{
-        favoriteService.addToFavorites(favoriteRequest);
-        return null;
-    } catch (Exception exception){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-    }
+    public void addToFavorites(@RequestBody FavoriteRequest favoriteRequest) throws Exception {
+
+             favoriteService.addToFavorites(favoriteRequest);
     }
 
     @DeleteMapping(value = "/remove/{userId}")
@@ -42,7 +36,7 @@ public class FavoriteController {
 
     @GetMapping(value = "/user/{userId}")
     @CrossOrigin
-    public List<Favorite> getUserFavorites(@PathVariable Long userId) {
+    public Favorite getUserFavorites(@PathVariable Long userId) {
        return   favoriteService.findByUserId(userId);
     }
 }

@@ -18,12 +18,12 @@ public class FavoriteServiceImpl implements FavoriteService{
     @Autowired
     private  ItemService itemService;
     @Override
-    public void addToFavorites(FavoriteRequest favoriteRequest) throws Exception {
-        List<Favorite> existingFavorite = favoriteRepository.getFavoriteListById(favoriteRequest.getId());
-        if(existingFavorite == null){
-            throw new Exception("Item " + favoriteRequest.getId() + " is already taken");
+    public void addToFavorites(FavoriteRequest favorite) throws Exception {
+        Favorite existingFavorite = favoriteRepository.getFavoriteListById(favorite.getUserId());
+        if(existingFavorite != null){
+            throw new Exception("Item " + favorite.getUserId() + " is already taken");
         }
-            favoriteRepository.addToFavorites(favoriteRequest.toFavorite());
+            favoriteRepository.addToFavorites(favorite.toFavorite());
 
     }
 
@@ -43,12 +43,12 @@ public class FavoriteServiceImpl implements FavoriteService{
     }
 
     @Override
-    public List<Favorite> findByCustomUser(CustomUser customUser) {
+    public Favorite findByCustomUser(CustomUser customUser) {
         return favoriteRepository.getFavoriteListById(customUser.getId());
     }
 
     @Override
-    public List<Favorite> findByUserId(Long userId) {
+    public Favorite findByUserId(Long userId) {
         return favoriteRepository.getFavoriteListById(userId);
     }
 }

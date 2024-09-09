@@ -1,11 +1,11 @@
 package com.userLogin.model;
 
-public class FavoriteRequest {
+public class FavoriteResponse {
     private Long id;
     private Long userId;
     private Item item;
 
-    public FavoriteRequest(Long id, Long userId, Item item) {
+    public FavoriteResponse(Long id, Long userId, Item item) {
         this.id = id;
         this.userId = userId;
         this.item = item;
@@ -34,16 +34,4 @@ public class FavoriteRequest {
     public void setItem(Item item) {
         this.item = item;
     }
-
-    public Favorite toFavorite()
-    {
-        return new Favorite(
-                null,
-                this.userId,
-                this.item
-        );
-    }
-
-
-
 }
