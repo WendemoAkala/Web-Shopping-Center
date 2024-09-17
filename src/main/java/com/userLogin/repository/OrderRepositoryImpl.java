@@ -29,6 +29,16 @@ public class OrderRepositoryImpl implements OrderRepository{
                     order.getStatus());
     }
 
+    @Override
+    public Order findById(Long id) {
+        String sql = "SELECT * FROM  " + ORDER_TABLE_NAME + " WHERE id=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, orderMapper, id);
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
+            return null;
+        }
+    }
 
 
     @Override
@@ -54,7 +64,20 @@ public class OrderRepositoryImpl implements OrderRepository{
     }
 
     @Override
-    public List<Order> findOrderByUserId(Long userId) {
+    public Order findOrderByUserId(Long userId) {
+        String sql = "SELECT * FROM  " + ORDER_TABLE_NAME + " WHERE user_id=?";
+        try {
+
+            return jdbcTemplate.queryForObject(sql, orderMapper, userId);
+
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
+            return null;
+        }
+    }
+
+    @Override
+    public List<Order> findOrdersByUserId(Long userId) {
         String sql = "SELECT * FROM  " + ORDER_TABLE_NAME + " WHERE user_id=?";
         try {
 
@@ -67,9 +90,9 @@ public class OrderRepositoryImpl implements OrderRepository{
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Long userId) {
         String sql = "DELETE FROM " + ORDER_TABLE_NAME + " WHERE user_id=?";
-             jdbcTemplate.update(sql, id);
+             jdbcTemplate.update(sql, userId);
 
     }
 

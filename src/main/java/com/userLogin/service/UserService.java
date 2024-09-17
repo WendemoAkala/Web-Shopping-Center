@@ -12,13 +12,12 @@ public interface UserService {
     void updateUser(CustomUser customUser) throws Exception;
 
     List<CustomUser> getUsersByFirstName(String firstName);
-
-//    Optional<Object> findById(Long id);
     CustomUser findByUsername(String username);
 
     void deleteUserById(Long id);
 
     CustomUser getUserByFirstName(String firstName);
+    CustomUser getUserById(Long id);
     CustomUser save(CustomUser customUser);
 
     List<CustomUser> getAllUsers();

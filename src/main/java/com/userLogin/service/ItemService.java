@@ -12,7 +12,7 @@ public interface ItemService {
 
     List<Item> searchItemsByName(String title);
 
-    Item findById(Long id);
+    Item findItemById(Long id);
 
     List<Item> findAll();
 

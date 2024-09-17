@@ -5,15 +5,15 @@ import java.util.List;
 public class Favorite {
         private Long id;
         private Long userId;
-        private Item item;
+        private Long itemId;
 
     public Favorite() {
     }
 
-    public Favorite(Long id, Long userId, Item item) {
+    public Favorite(Long id, Long userId, Long itemId) {
             this.id = id;
             this.userId = userId;
-            this.item = item;
+            this.itemId = itemId;
         }
 
         public Long getId() {
@@ -32,12 +32,12 @@ public class Favorite {
             this.userId = userId;
         }
 
-        public Item getItem() {
-            return item;
+        public Long getItemId() {
+            return itemId;
         }
 
-        public void setItem(Item item) {
-            this.item = item;
+        public void setItemId(Long itemId) {
+            this.itemId = itemId;
         }
 
     }

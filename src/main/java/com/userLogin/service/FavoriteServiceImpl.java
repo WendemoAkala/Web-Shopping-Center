@@ -19,10 +19,7 @@ public class FavoriteServiceImpl implements FavoriteService{
     private  ItemService itemService;
     @Override
     public void addToFavorites(FavoriteRequest favorite) throws Exception {
-        Favorite existingFavorite = favoriteRepository.getFavoriteListById(favorite.getUserId());
-        if(existingFavorite != null){
-            throw new Exception("Item " + favorite.getUserId() + " is already taken");
-        }
+
             favoriteRepository.addToFavorites(favorite.toFavorite());
 
     }
@@ -38,17 +35,23 @@ public class FavoriteServiceImpl implements FavoriteService{
     }
 
     @Override
-    public void removeFromFavorites(Long userId) {
-        favoriteRepository.removeFromFavorites(userId);
+    public void removeFromFavorites(Long id) {
+        favoriteRepository.removeFromFavorites(id);
+        System.out.println("favorite whit id " + id + " is deleted");
     }
 
     @Override
     public Favorite findByCustomUser(CustomUser customUser) {
-        return favoriteRepository.getFavoriteListById(customUser.getId());
+        return favoriteRepository.getFavoriteById(customUser.getId());
     }
 
     @Override
     public Favorite findByUserId(Long userId) {
-        return favoriteRepository.getFavoriteListById(userId);
+        return favoriteRepository.getFavoriteById(userId);
+    }
+
+    @Override
+    public Item getItemById(Long itemId) {
+        return favoriteRepository.getItemById(itemId);
     }
 }

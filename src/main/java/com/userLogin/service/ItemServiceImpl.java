@@ -15,10 +15,7 @@ public class ItemServiceImpl implements ItemService{
     private ItemRepository itemRepository;
     @Override
     public void createItem(ItemRequest itemRequest) throws Exception {
-        Item item1 = itemRepository.findItemById(itemRequest.getId());
-        if(item1 != null){
-            throw new Exception("id " + item1.getTitle() + " is already exist");
-        }
+
         itemRepository.createItem(itemRequest.toItem());
     }
 
@@ -33,7 +30,7 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public Item findById(Long id) {
+    public Item findItemById(Long id) {
         return itemRepository.findItemById(id);
     }
 

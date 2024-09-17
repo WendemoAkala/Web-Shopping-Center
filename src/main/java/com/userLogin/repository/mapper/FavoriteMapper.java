@@ -9,14 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 @Component
 public class FavoriteMapper implements RowMapper<Favorite> {
+
     @Override
     public Favorite mapRow(ResultSet rs, int rowNum) throws SQLException {
+
         return new Favorite(
                 rs.getLong("id"),
                 rs.getLong("user_id"),
-                (Item) rs.getObject("items")
+                rs.getLong("item_id")
 
         );
     }
+
 }
 

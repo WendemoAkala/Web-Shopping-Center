@@ -19,4 +19,6 @@ public interface UserRepository {
     CustomUser getUserByFirstName(String firstName);
 
     List<CustomUser> getAllUsers();
+
+    CustomUser getUserById(Long id);
 }

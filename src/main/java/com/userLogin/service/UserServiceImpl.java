@@ -43,6 +43,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public CustomUser getUserById(Long id) {
+        return userRepository.getUserById(id);
+    }
+
+    @Override
     public CustomUser save(CustomUser customUser) {
         return save(customUser);
     }
@@ -58,11 +63,6 @@ public class UserServiceImpl implements UserService {
 //        CustomUser existingCustomUser = userRepository.findByUsername(username);
         return  userRepository.findByUsername(username);
     }
-
-//    @Override
-//    public Optional<Object> findById(Long id) {
-//        return Optional.empty();
-//    }
 
     @Override
     public void deleteUserById(Long id) {

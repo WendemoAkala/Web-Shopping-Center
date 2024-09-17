@@ -35,13 +35,10 @@ public class UserController {
              userService.updateUser(customUser);
     }
 
-    @DeleteMapping(value = "/delete/{id}/{user_id}")
+    @DeleteMapping(value = "/delete/{id}")
     @CrossOrigin
-    public void deleteUserById(@PathVariable Long id, @PathVariable Long userId){
+    public void deleteUserById(@PathVariable Long id){
         userService.deleteUserById(id);
-        orderService.deleteOrder(userId);
-        favoriteService.removeFromFavorites(userId);
-
     }
     @GetMapping(value = "/All/")
     @CrossOrigin
@@ -53,11 +50,17 @@ public class UserController {
     public CustomUser getUserByFirstName(@RequestParam String firstName){
         return userService.getUserByFirstName(firstName);
     }
+    @GetMapping(value = "/getUserById/")
+    @CrossOrigin
+    public CustomUser getUserById(@PathVariable Long id){
+        return userService.getUserById(id);
+    }
     @GetMapping(value = "/all/")
     @CrossOrigin
     public List<CustomUser> getAllUsers(){
        return userService.getAllUsers();
     }
+
 }
 
 

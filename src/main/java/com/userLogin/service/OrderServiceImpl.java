@@ -18,24 +18,17 @@ public class OrderServiceImpl implements OrderService{
     private OrderService orderService;
     @Override
     public void createOrder(OrderRequest orderRequest) throws Exception {
-        Order existingOrder = orderRepository.findByUserId(orderRequest.getId());
+        Order existingOrder = orderRepository.findById(orderRequest.getId());
         if(existingOrder != null){
             throw new Exception("User Id " + orderRequest.getId() + " is already exist change Id");
         }
-
             orderRepository.createOrder(orderRequest.toOrder());
-
-
     }
 
-    @Override
-    public void findOrderByUserId(Long userId) {
-        orderRepository.findByUserId(userId);
-    }
 
     @Override
     public void deleteOrder(Long userId) {
-        Order existingOrder = orderRepository.findByUserId(userId);
+        Order existingOrder = orderRepository.findOrderByUserId(userId);
         try{
            orderRepository.deleteById(userId);
          }catch (EnumConstantNotPresentException e){
@@ -44,13 +37,18 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public void findOrderByUserId(Long userId) {
+        orderRepository.findOrderByUserId(userId);
+    }
+
+    @Override
     public List<Order> findByUserAndStatusIn(CustomUser customUser, List<OrderStatus> temp) {
         return null;
     }
 
     @Override
-    public Optional<Object> findById(Long orderId) {
-        return Optional.empty();
+    public List<Order> findOrdersByUserId(Long userId) {
+        return orderRepository.findOrdersByUserId(userId);
     }
 
     @Override
@@ -60,11 +58,17 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List<Order> findByUserId(Long userId) {
-        return orderRepository.findOrderByUserId(userId);
+        return orderRepository.findOrdersByUserId(userId);
+    }
+
+
+    @Override
+    public Order updateOrderStatus(Long id) {
+        return orderRepository.findById(id);
     }
 
     @Override
-    public Order updateOrderStatus(Long id, OrderStatus status) {
-        return orderRepository.findByUserId(id);
+    public Optional<Object> findById(Long orderId) {
+        return Optional.empty();
     }
 }

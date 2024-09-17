@@ -7,6 +7,9 @@ public class Item {
     private double price;
     private int stockCount;
 
+    public Item() {
+    }
+
     public Item(Long id, String title, String photoUrl, double price, int stockCount) {
         this.id = id;
         this.title = title;

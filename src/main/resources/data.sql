@@ -64,11 +64,12 @@ INSERT INTO item (title, photo_url, price, stock_count)VALUES
 CREATE TABLE favorite (
       id int(11) unsigned NOT NULL AUTO_INCREMENT,
       user_id int(11) unsigned NOT NULL DEFAULT '',
-      items varchar(1500) unsigned NOT NULL DEFAULT '',
+      item_id varchar(11) unsigned NOT NULL DEFAULT '',
       PRIMARY KEY (id),
-      FOREIGN KEY (user_id) REFERENCES user (id)
+      FOREIGN KEY (user_id) REFERENCES user (id),
+      FOREIGN KEY (item_id) REFERENCES item (id)
 
        );
 
-INSERT INTO favorite (user_id) VALUES
-        (1);
+INSERT INTO favorite (user_id,item_id) VALUES
+        (1,3);

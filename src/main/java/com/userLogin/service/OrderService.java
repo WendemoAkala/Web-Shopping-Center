@@ -10,17 +10,18 @@ import java.util.Optional;
 
 public interface OrderService {
     void createOrder(OrderRequest orderRequest) throws Exception;
-    void findOrderByUserId(Long userId);
 
     void deleteOrder(Long userId);
-
+    void findOrderByUserId(Long userId);
     List<Order> findByUserAndStatusIn(CustomUser customUser, List<OrderStatus> temp);
 
-    Optional<Object> findById(Long orderId);
+    List<Order> findOrdersByUserId(Long orderId);
 
     Order save(Order order);
 
     List<Order> findByUserId(Long userId);
 
-    Order updateOrderStatus(Long id, OrderStatus status);
+    Order updateOrderStatus(Long id);
+
+    Optional<Object> findById(Long orderId);
 }

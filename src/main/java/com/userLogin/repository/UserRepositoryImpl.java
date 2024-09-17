@@ -62,9 +62,21 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public CustomUser getUserById(Long id) {
+
+        String sql = "SELECT * FROM " + USER_TABLE_NAME + " WHERE id=?";
+        try {
+            return jdbcTemplate.queryForObject(sql, userMapper, id);
+        } catch (EmptyResultDataAccessException error) {
+            System.out.println("Warning: EmptyResultDataAccessException");
+            return null;
+        }
+    }
+
+    @Override
     public void deleteUserById(Long id) {
             String sql = "DELETE FROM " + USER_TABLE_NAME + " WHERE id=?";
-            jdbcTemplate.update(sql, id);
+            jdbcTemplate.update(sql , id);
 
     }
     @Override

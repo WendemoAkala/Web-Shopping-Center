@@ -33,10 +33,10 @@ public class OrderController {
        return orderService.findByUserId(userId);
     }
 
-    @PutMapping("/modify/{orderId}")
+    @PutMapping("/modify/{id}")
     @CrossOrigin
-    public ResponseEntity<Order> modifyOrder(@PathVariable Long orderId, @RequestBody Order modifiedOrder) {
-        Order existingOrder = (Order) orderService.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found"));
+    public ResponseEntity<Order> modifyOrder(@PathVariable Long id, @RequestBody Order modifiedOrder) {
+        Order existingOrder = (Order) orderService.findById(id).orElseThrow(() -> new RuntimeException("Order not found"));
 
         if (existingOrder.getStatus().name().equals(modifiedOrder.getStatus().name())) {
           List<OrderItem> modifiedItems = (List<OrderItem>) existingOrder;
@@ -76,8 +76,8 @@ public class OrderController {
 
     @PutMapping("/updateStatus/{id}")
     @CrossOrigin
-    public Order updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus status) {
-            return orderService.updateOrderStatus(id, status);
+    public Order updateOrderStatus(@PathVariable Long id) {
+            return orderService.updateOrderStatus(id);
     }
 @PutMapping("/updateItem")     /*  לבדוק איך לעדכן כמות*/
 @CrossOrigin
