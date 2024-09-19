@@ -50,7 +50,7 @@ public class UserController {
     public CustomUser getUserByFirstName(@RequestParam String firstName){
         return userService.getUserByFirstName(firstName);
     }
-    @GetMapping(value = "/getUserById/")
+    @GetMapping(value = "/getUserById/{id}")
     @CrossOrigin
     public CustomUser getUserById(@PathVariable Long id){
         return userService.getUserById(id);
